@@ -65,6 +65,10 @@ export default {
 };
 </script>
 <style>
+    .leftbar-wrapper {
+        position: sticky;
+        top: 10px;
+    }
     .leftbar-wrapper ul {
         list-style-type: none;
         font-size: 19px;

@@ -80,11 +80,10 @@ body {
 }
 
 .home-content {
-  flex: 1;
-  display: flex;
   justify-content: center;
   margin: 0 auto;
   padding-top: 25px;
+  width: 700px;
   /* background-color: blue;
   opacity: 0.3; */
 }
