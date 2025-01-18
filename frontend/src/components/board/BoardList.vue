@@ -1,5 +1,5 @@
 <template>
-  <div></div>
+  <div class="area-wrapper">asdasd</div>
 </template>
 
 <script>
@@ -9,4 +9,8 @@ export default {
 </script>
 
 <style>
+  .area-wrapper{
+    width: 700px;
+    background-color: red;
+  }
 </style>

@@ -3,12 +3,13 @@
     <AppHeader/>
   </div>
   <div class="content">
-    <div class="sidebar">
+    <div class="left-bar">
       <LeftBar/>
     </div>
     <div class="home-content">
       <BoardList/>
     </div>
+    <div class="right-bar"></div>
   </div>
 </template>
 
@@ -58,24 +59,33 @@ body {
 }
 
 .content {
-  flex: 1; /* 부모 요소의 남은 공간을 채움 */
+  flex: 1;
   display: flex;
 }
 
-.sidebar {
+.left-bar {
   width: 15%;
   border-right: 1px solid rgb(169, 169, 169);
-  padding-top: 25px;
-  background-color: red;
-  opacity: 0.3;
+  padding-top: 10px;
+  /* background-color: red;
+  opacity: 0.3; */
+}
+
+.right-bar {
+  width: 15%;
+  /* border-left: 1px solid rgb(169, 169, 169); */
+  padding-top: 10px;
+  /* background-color: red;
+  opacity: 0.3; */
 }
 
 .home-content {
   flex: 1;
   display: flex;
   justify-content: center;
+  margin: 0 auto;
   padding-top: 25px;
-  background-color: blue;
-  opacity: 0.3;
+  /* background-color: blue;
+  opacity: 0.3; */
 }
 </style>
