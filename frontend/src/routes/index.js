@@ -1,18 +1,18 @@
 import { createRouter, createWebHistory } from 'vue-router';
-import Home from '../App.vue';
-import AppHeader from '../components/common/AppHeader.vue';
+// import AppHeader from '../components/common/AppHeader.vue';
 
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: Home,
-  },
-  {
-    path: '/',
-    name: 'app-header',
-    component: AppHeader,
-  },
+    component: () => import("@/views/Home.vue"),
+    children: [
+      {
+        path: "",
+        name: "home-board-content",
+        component: () => import("@/views/BoardList.vue")
+      }
+    ]
+  }
 ];
 
 const router = createRouter({

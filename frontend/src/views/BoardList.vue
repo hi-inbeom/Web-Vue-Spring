@@ -1,34 +1,36 @@
 <template>
-  <div class="sort-area-wrapper">
-    <button>sort by</button>
-  </div>
-  <div class="area-liner"></div>
-  <div class="board-area-wrapper">
-    <div class="board-frame" v-for="(post, index) in posts" :key="index">
-        <div class="board-top-frame">
-          <span id="writer">{{ post.writer }}</span>
-        </div>
-        <div class="board-title-frame">
-          <span id="title">{{ post.title }}</span>
-        </div>
-        <div class="board-content-frame">
-          <div v-if="post.screenshot">{{ post.screenshot }}</div>
-          <div v-if="!post.screenshot">{{ post.content }}</div>
-        </div>
-        <div class="board-bottom-frame">
-          <div>스크랩</div>
-          <div>좋아요</div>
-          <div>댓글</div>
-          <div>공유</div>
-          <div style="margin-left:auto;">신고</div>
-        </div>
+  <div class="board-wrapper">
+    <div class="sort-area-wrapper">
+      <button>sort by</button>
+    </div>
+    <div class="area-liner"></div>
+    <div class="board-area-wrapper">
+      <div class="board-frame" v-for="(post, index) in posts" :key="index">
+          <div class="board-top-frame">
+            <span id="writer">{{ post.writer }}</span>
+          </div>
+          <div class="board-title-frame">
+            <span id="title">{{ post.title }}</span>
+          </div>
+          <div class="board-content-frame">
+            <div v-if="post.screenshot">{{ post.screenshot }}</div>
+            <div v-if="!post.screenshot">{{ post.content }}</div>
+          </div>
+          <div class="board-bottom-frame">
+            <div>스크랩</div>
+            <div>좋아요</div>
+            <div>댓글</div>
+            <div>공유</div>
+            <div style="margin-left:auto;">신고</div>
+          </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: 'BoardList',
+  name: 'home-board-content',
   data() {
     return {
       posts: [
@@ -55,6 +57,13 @@ export default {
 </script>
 
 <style>
+  .board-wrapper {
+      justify-content: center;
+      margin: 0 auto;
+      padding-top: 25px;
+      width: 700px;
+}
+
 /* 정렬 영역 지정 */
 .sort-area-wrapper {
   display: flex;

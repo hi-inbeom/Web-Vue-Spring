@@ -1,44 +1,38 @@
 <template>
-  <div class="header">
+  <div id="app">
     <AppHeader/>
-  </div>
-  <div class="content">
-    <div class="left-bar">
+    <div class="main-layout">
       <LeftBar/>
+      <div class="router-view-container">
+        <RouterView/>
+      </div>
+      <RightBar/>
     </div>
-    <div class="home-content">
-      <BoardList/>
-    </div>
-    <div class="right-bar"></div>
   </div>
 </template>
 
 <script>
-import AppHeader from './components/common/AppHeader.vue'
-import BoardList from './components/board/BoardList.vue'
-import LeftBar from './components/side/LeftBar.vue'
+import AppHeader from '@/views/AppHeader.vue'
+import LeftBar from '@/views/LeftBar.vue'
+import RightBar from '@/views/RightBar.vue'
+import { RouterView } from "vue-router";
 
 export default {
   name: 'App',
   components: {
     AppHeader,
-    BoardList,
-    LeftBar
-  }
+    LeftBar,
+    RightBar,
+    RouterView
+  },
 }
 </script>
 
-<style>
+<style scoped>
 html, body {
   height: 100%;
   margin: 0;
 }
-
-body {
-  width: 100%;
-  margin: 0;
-}
-
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -50,41 +44,9 @@ body {
   flex-direction: column;
 }
 
-.header {
-  height: 80px;
-  border-bottom: 1px solid rgb(169, 169, 169);
-  padding: 0px 15px;
-  /* background-color: brown;
-  opacity: 0.3; */
-}
-
-.content {
-  flex: 1;
+.main-layout {
   display: flex;
-}
-
-.left-bar {
-  width: 15%;
-  border-right: 1px solid rgb(169, 169, 169);
-  padding-top: 10px;
-  /* background-color: red;
-  opacity: 0.3; */
-}
-
-.right-bar {
-  width: 15%;
-  /* border-left: 1px solid rgb(169, 169, 169); */
-  padding-top: 10px;
-  /* background-color: red;
-  opacity: 0.3; */
-}
-
-.home-content {
-  justify-content: center;
-  margin: 0 auto;
-  padding-top: 25px;
-  width: 700px;
-  /* background-color: blue;
-  opacity: 0.3; */
+  flex: 1;
+  justify-content: space-between;
 }
 </style>

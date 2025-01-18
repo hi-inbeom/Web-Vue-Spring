@@ -22,7 +22,7 @@
             <li>
                 <a 
                     class="leftbar-router" 
-                    :href="$router.resolve({ path: '/doc/help' }).href" 
+                    href="/doc/Help.html" 
                     target="_blank"
                 >
                 Help
@@ -31,16 +31,16 @@
             <li>
                 <a 
                     class="leftbar-router" 
-                    :href="$router.resolve({ path: '/doc/user-agreement' }).href" 
+                    href="/doc/UserAgreement.html" 
                     target="_blank"
                 >
-                User Agreement
+                    User Agreement
                 </a>
             </li>
             <li>
                 <a 
                     class="leftbar-router" 
-                    :href="$router.resolve({ path: '/doc/privacy-policy' }).href" 
+                    href="/doc/PrivacyPolicy.html" 
                     target="_blank"
                 >
                     Privacy Policy
@@ -68,6 +68,9 @@ export default {
     .leftbar-wrapper {
         position: sticky;
         top: 10px;
+        width: 15%;
+        border-right: 1px solid rgb(169, 169, 169);
+        padding-top: 10px;
     }
     .leftbar-wrapper ul {
         list-style-type: none;
