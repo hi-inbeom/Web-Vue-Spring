@@ -4,7 +4,7 @@
     <div class="main-layout">
       <LeftBar/>
       <div class="router-view-container">
-        <RouterView/>
+        <!-- <RouterView/> -->
       </div>
       <RightBar/>
     </div>
@@ -15,20 +15,20 @@
 import AppHeader from '@/views/AppHeader.vue'
 import LeftBar from '@/views/LeftBar.vue'
 import RightBar from '@/views/RightBar.vue'
-import { RouterView } from "vue-router";
+// import { RouterView } from "vue-router";
 
 export default {
   name: 'App',
   components: {
     AppHeader,
     LeftBar,
-    RightBar,
-    RouterView
+    RightBar
+    // RouterView
   },
 }
 </script>
 
-<style scoped>
+<style>
 html, body {
   height: 100%;
   margin: 0;

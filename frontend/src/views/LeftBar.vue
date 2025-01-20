@@ -19,27 +19,30 @@
             </li>
             <li class="leftbar-liner" style="height: 0px;">
             </li>
-            <li>
+            <li onclick="document.querySelector('#leftbar-help').click()">
                 <a 
-                    class="leftbar-router" 
+                    class="leftbar-router"
+                    id="leftbar-help"
                     href="/doc/Help.html" 
                     target="_blank"
                 >
                 Help
                 </a>
             </li>
-            <li>
+            <li onclick="document.querySelector('#leftbar-useragreement').click()">
                 <a 
                     class="leftbar-router" 
+                    id="leftbar-useragreement"
                     href="/doc/UserAgreement.html" 
                     target="_blank"
                 >
                     User Agreement
                 </a>
             </li>
-            <li>
+            <li onclick="document.querySelector('#leftbar-privacypolicy').click()">
                 <a 
                     class="leftbar-router" 
+                    id="leftbar-privacypolicy"
                     href="/doc/PrivacyPolicy.html" 
                     target="_blank"
                 >
@@ -64,15 +67,15 @@ export default {
     }
 };
 </script>
-<style>
+<style scoped>
     .leftbar-wrapper {
-        position: sticky;
-        top: 10px;
         width: 15%;
         border-right: 1px solid rgb(169, 169, 169);
         padding-top: 10px;
     }
     .leftbar-wrapper ul {
+        position: sticky;
+        top: 10px;
         list-style-type: none;
         font-size: 19px;
         font-weight: 800;
@@ -95,6 +98,9 @@ export default {
         background-color: rgba(70, 124, 94, 0.377);
         color: rgba(255, 255, 255, 0.856);
         border-radius: 10px;
+    }
+    .leftbar-wrapper li:hover a  {
+        color: rgba(255, 255, 255, 0.856);
     }
     .leftbar-liner {
         border-bottom: 1px solid black;
