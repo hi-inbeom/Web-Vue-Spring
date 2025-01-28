@@ -34,7 +34,7 @@
         </div>
     </div>
     <!-- 계정 생성 -->
-    <form v-if="joinProcess==2" class="processJoinWrapper">
+    <form action="/user/join" v-if="joinProcess==2" class="processJoinWrapper">
         <!-- 입력값-아이디 -->
         <div class="join-input-box">
             <input id="userid"
@@ -57,7 +57,7 @@
                 v-model="userpassword"
                 placeholder="비밀번호"
                 autocomplete="off"
-                @blur="checkPasswordLength"
+                @blur="handlePwdLength"
             />
             <label for="userpassword">비밀번호-6글자 이상</label>
             <span v-if="userpasswordWarning" class="join-warning-text">비밀번호는 6글자 이상이어야 합니다.</span>
@@ -68,13 +68,14 @@
                 type="password"
                 name="checkSamePassword"
                 v-model="checkSamePassword"
-                @blur="checkPasswordMatch"
+                @blur="handlePwdMatch"
                 placeholder="비밀번호 확인"
                 autocomplete="off"
             />
             <label for="checkSamePassword">비밀번호 확인</label>
             <span v-if="passwordWarning" class="join-warning-text">비밀번호가 일치하지 않습니다.</span>
         </div>
+        <input id='usermail' v-model="usermail" style="display:none;"/>
         <!-- 가입 요청 -->
         <input class="account-submit-btn"
                 type="submit"
@@ -110,7 +111,7 @@ export default {
         handleFirstProcess() {
             this.joinProcess=1;
             this.verifyCode = Math.floor(1000 + Math.random() * 9000).toString();
-            axios.post("http://localhost:8080/auth/sendCode", {
+            axios.post("http://localhost:8080/user/sendCode", {
                 usermail: this.usermail, // 요청 데이터
                 verifyCode: this.verifyCode
             });
@@ -126,7 +127,7 @@ export default {
         async handleUsedIdWarning() {
             // DB연결하여 아이디 중복 체크
             try {    
-                const response = await axios.post("http://localhost:8080/account/checkUserId", {
+                const response = await axios.post("http://localhost:8080/user/checkUserId", {
                     userid: this.userid
                 })
                 if(!response.ok) {
@@ -140,10 +141,10 @@ export default {
                 this.usedIdWarning = 1;
             }
         },
-        checkPasswordLength() {
+        handlePwdLength() {
             this.userpasswordWarning = this.userpassword.length < 6;
         },
-        checkPasswordMatch() {
+        handlePwdMatch() {
             this.passwordWarning = this.userpassword !== this.checkSamePassword;
         }
     }
