@@ -11,6 +11,9 @@ public abstract class BaseDto {
     private String regdate;
 
     private String moddate;
+    
+    protected BaseDto() {
+    }
 
     protected <T extends BaseEntity> BaseDto(T entity) {
         this.idx = entity.getIdx();

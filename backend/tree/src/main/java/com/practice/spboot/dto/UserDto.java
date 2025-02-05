@@ -18,6 +18,9 @@ public class UserDto extends BaseDto {
     @Email(message = "올바른 이메일주소가 아닙니다")
     private String userEmail;
     
+    public UserDto() {
+    }
+    
     private UserDto(User user) {
     	super(user);
     	this.userId = user.getUserId();
@@ -51,5 +54,9 @@ public class UserDto extends BaseDto {
     
     public User toEntity() {
         return new User(userId, userPassword, userEmail);
+    }
+    
+    public static UserDto of(User user) {
+    	return new UserDto(user);
     }
 }
