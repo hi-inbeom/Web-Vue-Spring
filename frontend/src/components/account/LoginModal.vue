@@ -13,7 +13,7 @@
             </p>
             <!-- <EmailLogin></EmailLogin> -->
             <SiteLogin @showJoinSite="handleShowJoinSite" v-if="!showJoinSite"></SiteLogin>
-            <JoinSite v-else></JoinSite>
+            <JoinSite v-else @callCloseModal="closeModal"></JoinSite>
         </div>
       </div>
     </div>

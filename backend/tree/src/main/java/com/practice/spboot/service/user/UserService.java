@@ -16,8 +16,13 @@ public class UserService {
 	private final UserRepository userRepository;
 
 	public Boolean findByUserId(String userId) {
+		System.out.println("????");
 		// 있을 경우 true, 없을 경우 false
 		return userRepository.findByUserId(userId) != null;
+	}
+	
+	public Boolean findByUserName(String userName) {
+		return userRepository.findByUserName(userName) != null;
 	}
 
 	public Boolean save(UserDto userDto) {
@@ -40,4 +45,6 @@ public class UserService {
 			throw new UserExceptions("userdto", "userName", "존재하는 닉네임");
 		};
 	}
+
+
 }

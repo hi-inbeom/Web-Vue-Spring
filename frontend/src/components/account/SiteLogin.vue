@@ -1,20 +1,18 @@
 <template lang="">
-    <form action="">
-        <div class="login-input-box">
-            <input id="userid" type="text" name="userid" placeholder="아이디" autocomplete="off">
-            <label for="userid">아이디</label>
-        </div>
+    <div class="login-input-box">
+        <input id="userid" type="text" name="userid" placeholder="아이디" autocomplete="off">
+        <label for="userid">아이디</label>
+    </div>
 
-        <div class="login-input-box">
-            <input id="userpassword" type="userpassword" name="userpassword" placeholder="비밀번호" autocomplete="off">
-            <label for="userpassword">비밀번호</label>
-        </div>
-        <div class="help-box">
-            <div class="notice-login"> 비밀번호 찾기 </div>
-            <div class="notice-login" @click="showJoinSite"> 회원가입 </div>
-        </div>
-        <input class="account-submit-btn" type="submit" value="로그인">
-    </form>
+    <div class="login-input-box">
+        <input id="userpassword" type="userpassword" name="userpassword" placeholder="비밀번호" autocomplete="off">
+        <label for="userpassword">비밀번호</label>
+    </div>
+    <div class="help-box">
+        <div class="notice-login"> 계정 찾기 </div>
+        <div class="notice-login" @click="showJoinSite"> 회원가입 </div>
+    </div>
+    <input class="account-submit-btn" type="submit" value="로그인">
 </template>
 <script>
 export default {

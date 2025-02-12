@@ -19,6 +19,7 @@ public class UserDto extends BaseDto {
 
     @Size(min = 4, message = "비밀번호는 4글자 이상 입력해주세요")
     private String userPassword;
+    private String userVerifyPassword;
     
     @NotBlank(message = "이메일 주소를 입력해주세요")
     @Email(message = "올바른 이메일주소가 아닙니다")
