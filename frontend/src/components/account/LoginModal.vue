@@ -11,7 +11,7 @@
                 <a href="/">개인정보 수집 및 이용</a>
                 을 이해하고 동의하였음을 인정합니다.
             </p>
-            <EmailLogin></EmailLogin>
+            <!-- <EmailLogin></EmailLogin> -->
             <SiteLogin @showJoinSite="handleShowJoinSite" v-if="!showJoinSite"></SiteLogin>
             <JoinSite v-else></JoinSite>
         </div>
@@ -20,17 +20,16 @@
 </template>
 
 <script>
-import EmailLogin from './EmailLogin.vue';
+// import EmailLogin from './EmailLogin.vue';
 import SiteLogin from './SiteLogin.vue';
 import JoinSite from './JoinSite.vue';
 export default {
     name: 'LoginModal',
     components: {
-        EmailLogin,
+        // EmailLogin,
         SiteLogin,
         JoinSite
     },
-    // 컴포넌트 맨처음 들어왔을 때 자동으로 열리는 것
     data() {
         return {
             showJoinSite: false
