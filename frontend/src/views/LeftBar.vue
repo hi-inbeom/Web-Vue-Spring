@@ -1,5 +1,5 @@
 <template>
-    <div class="leftbar-wrapper">
+    <div class="leftbar-wrapper" hidden>
         <ul>
             <li>
                 <router-link class="leftbar-router" to="/" >
