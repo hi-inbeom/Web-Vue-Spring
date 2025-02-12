@@ -1,6 +1,13 @@
 package com.practice.spboot.domain.user;
 
-public enum Authorities {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum Authorities implements GrantedAuthority {
 	ADMIN,
 	USER;
+	
+    @Override
+    public String getAuthority() {
+        return this.toString();
+    }
 }

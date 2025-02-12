@@ -5,8 +5,14 @@ import com.practice.spboot.domain.user.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 //view와 통신하기 위한 클래스, 중요한 데이터를 노출시키지 않기 위한 클래스 (column의 idx값 같은 것들)
+@NoArgsConstructor
+@Getter
+@Setter
 public class UserDto extends BaseDto {
 	@Size(min = 4, message = "아이디는 4글자 이상 입력해주세요")
     private String userId;
@@ -18,45 +24,22 @@ public class UserDto extends BaseDto {
     @Email(message = "올바른 이메일주소가 아닙니다")
     private String userEmail;
     
-    public UserDto() {
-    }
+    @NotBlank(message = "닉네임을 입력해주세요")
+    private String userName;
     
     private UserDto(User user) {
     	super(user);
     	this.userId = user.getUserId();
     	this.userPassword = user.getUserPassword();
     	this.userEmail = user.getUserEmail();
-    }
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
-	public String getUserPassword() {
-		return userPassword;
-	}
-
-	public void setUserPassword(String userPassword) {
-		this.userPassword = userPassword;
-	}
-
-	public String getUserEmail() {
-		return userEmail;
-	}
-
-	public void setUserEmail(String userEmail) {
-		this.userEmail = userEmail;
-	}
-    
-    public User toEntity() {
-        return new User(userId, userPassword, userEmail);
+    	this.userName = user.getUserName();
     }
     
     public static UserDto of(User user) {
     	return new UserDto(user);
+    }
+    
+    public User toEntity() {
+        return new User(userId, userPassword, userEmail, userName);
     }
 }

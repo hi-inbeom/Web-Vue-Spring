@@ -1,17 +1,16 @@
 package com.practice.spboot.controllers.user;
 
-import org.mybatis.logging.Logger;
-import org.mybatis.logging.LoggerFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practice.spboot.domain.user.User;
 import com.practice.spboot.dto.UserDto;
 import com.practice.spboot.service.user.UserService;
+import com.practice.spboot.service.user.UserSessionService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,9 +22,9 @@ public class UserController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
-	private final UserService userService;
+	private UserService userService;
+	private UserSessionService userSessionService;
 	
-
 	/*
 	 * auth Functions
 	 */
@@ -45,6 +44,6 @@ public class UserController {
     
     @GetMapping("/auth/find")
     public UserDto userFind(@RequestParam("userEmail") String userEmail) {
-    	return userService.findByuserEmail(userEmail);
+    	return userService.findByUserEmail(userEmail);
     }
 }

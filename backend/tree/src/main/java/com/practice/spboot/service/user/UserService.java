@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import com.practice.spboot.domain.user.User;
 import com.practice.spboot.domain.user.UserRepository;
 import com.practice.spboot.dto.UserDto;
+import com.practice.spboot.exception.UserExceptions;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,9 +24,20 @@ public class UserService {
 		return userRepository.save(userDto.toEntity()) != null;
 	}
 
-	public UserDto findByuserEmail(String userEmail) {
-		User user = userRepository.findByUserEmail(userEmail);
-		UserDto userDto = UserDto.of(user);
+	public UserDto findByUserEmail(String userEmail) {
+		UserDto userDto = UserDto.of(userRepository.findByUserEmail(userEmail));
 		return userDto;
+	}
+	
+	private void duplicateCheckForUserId(UserDto dto){
+		if (userRepository.findByUserId(dto.getUserId()) != null) {
+			throw new UserExceptions("userdto", "userId", "존재하는 아이디");
+		};
+	}
+
+	private void duplicateCheckForUserName(UserDto dto){
+		if (userRepository.findByUserId(dto.getUserName()) != null) {
+			throw new UserExceptions("userdto", "userName", "존재하는 닉네임");
+		};
 	}
 }
