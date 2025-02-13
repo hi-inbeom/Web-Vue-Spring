@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.practice.spboot.dto.UserDto;
 import com.practice.spboot.dto.VerifyUserEmail;
-import com.practice.spboot.service.user.JwtUserService;
 import com.practice.spboot.service.user.UserService;
-import com.practice.spboot.service.user.UserSessionService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -26,8 +25,6 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	private final UserService userService;
-	private final UserSessionService userSessionService;
-//	private final JwtUserService jwtUserService;
 	
 
 	@PostMapping("/sign/verify-email")
@@ -55,8 +52,18 @@ public class UserController {
     	return userService.save(userDto);
     }
     
-    @GetMapping("/auth/find")
+    @GetMapping("/sign/find")
     public UserDto userFind(@RequestParam("userEmail") String userEmail) {
     	return userService.findByUserEmail(userEmail);
+    }
+    
+    @PostMapping("/login")
+    public void userLogin(@RequestBody HttpSession httpSession, String userId, String userPassword) {
+    	userService.userLogin(httpSession, userId, userPassword);
+    }
+    
+    @PostMapping("/logout")
+    public void userLogout(@RequestBody HttpSession httpSession) {
+    	userService.userLogout(httpSession);
     }
 }

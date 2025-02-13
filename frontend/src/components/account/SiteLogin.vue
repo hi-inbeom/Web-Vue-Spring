@@ -9,8 +9,8 @@
         <label for="userpassword">비밀번호</label>
     </div>
     <div class="help-box">
-        <div class="notice-login"> 계정 찾기 </div>
-        <div class="notice-login" @click="showJoinSite"> 회원가입 </div>
+        <div class="notice-login" @click="$emit('switchRouter', 1)"> 계정 찾기 </div>
+        <div class="notice-login" @click="$emit('switchRouter', 2)"> 회원가입 </div>
     </div>
     <input class="account-submit-btn" type="submit" value="로그인">
 </template>
@@ -18,9 +18,6 @@
 export default {
     name: 'SiteLogin',
     methods: {
-        showJoinSite() {
-            this.$emit('showJoinSite', true);
-        }
     }
 }
 </script>
@@ -70,8 +67,10 @@ export default {
         margin-top:10px;
         color:rgba(0,0,0,0.35);
         font-size:14px;
-        cursor:pointer;
         width:98%;
+    }
+    .help-box .notice-login{
+        cursor: pointer;
     }
     .account-submit-btn{
         display: block;

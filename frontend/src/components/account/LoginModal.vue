@@ -3,17 +3,18 @@
       <div class="modal-content">
         <button class="close-btn" @click.self="closeModal">X</button>
         <div class="content-area">
-            <h1>Login</h1>
+            <h1>{{ handleViewTitle }}</h1>
             <p>
                 절차를 진행함에 있어
-                <a href="/">이용약관</a>
+                <a href="/doc/UserAgreement.html" 
+                    target="_blank">이용약관</a>
                 및
-                <a href="/">개인정보 수집 및 이용</a>
+                <a href="/doc/PrivacyPolicy.html" 
+                    target="_blank">개인정보 수집 및 이용</a>
                 을 이해하고 동의하였음을 인정합니다.
             </p>
             <!-- <EmailLogin></EmailLogin> -->
-            <SiteLogin @showJoinSite="handleShowJoinSite" v-if="!showJoinSite"></SiteLogin>
-            <JoinSite v-else @callCloseModal="closeModal"></JoinSite>
+            <component :is="handleViewComponent" @switchRouter="handleSwitchRouter"></component>
         </div>
       </div>
     </div>
@@ -22,17 +23,30 @@
 <script>
 // import EmailLogin from './EmailLogin.vue';
 import SiteLogin from './SiteLogin.vue';
+import FindAcnt from './FindAcnt.vue';
 import JoinSite from './JoinSite.vue';
 export default {
     name: 'LoginModal',
     components: {
         // EmailLogin,
         SiteLogin,
+        FindAcnt,
         JoinSite
     },
-    data() {
-        return {
-            showJoinSite: false
+    data: () => ({
+        switchRouter: 0,
+        viewComponentMap: {
+            0: {component: 'SiteLogin', title: '로그인'},
+            1: {component: 'FindAcnt', title: '계정 찾기'},
+            2: {component: 'JoinSite', title: '회원 가입'}
+        }
+    }),
+    computed: {
+        handleViewComponent() {
+            return this.viewComponentMap[this.switchRouter].component;
+        },
+        handleViewTitle() {
+            return this.viewComponentMap[this.switchRouter].title;
         }
     },
     props: {
@@ -41,8 +55,8 @@ export default {
         closeModal() {
             this.$emit('close');
         },
-        handleShowJoinSite(value) {
-            this.showJoinSite = value;
+        handleSwitchRouter(target) {
+            this.switchRouter = target;
         }
     }
 }

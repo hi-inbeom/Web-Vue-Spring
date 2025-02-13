@@ -7,6 +7,7 @@ import com.practice.spboot.domain.user.UserRepository;
 import com.practice.spboot.dto.UserDto;
 import com.practice.spboot.exception.UserExceptions;
 
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -14,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 public class UserService {
 
 	private final UserRepository userRepository;
+	private final UserSessionService userSessionService;
 
 	public Boolean findByUserId(String userId) {
 		System.out.println("????");
@@ -30,8 +32,7 @@ public class UserService {
 	}
 
 	public UserDto findByUserEmail(String userEmail) {
-		UserDto userDto = UserDto.of(userRepository.findByUserEmail(userEmail));
-		return userDto;
+		return UserDto.of(userRepository.findByUserEmail(userEmail));
 	}
 	
 	private void duplicateCheckForUserId(UserDto dto){
@@ -46,5 +47,22 @@ public class UserService {
 		};
 	}
 
+	public void userLogin(HttpSession httpSession, String userId, String userPassword) {
+	    UserDto userDto = UserDto.of(userRepository.findByUserId(userId));
+	    
+	    if (userDto == null) {
+	        throw new UserExceptions("userId", "userId", "존재하지 않는 아이디입니다.");
+	    }
+	    
+	    if (!userDto.getUserPassword().equals(userPassword)) {
+	        throw new UserExceptions("userPassword", "userPassword", "비밀번호가 일치하지 않습니다.");
+	    }
+	    
+	    userSessionService.startSession(httpSession, userDto);
+	}
+
+	public void userLogout(HttpSession httpSession) {
+		userSessionService.endSession(httpSession);
+	}
 
 }
