@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.practice.spboot.dto.LoginRequest;
 import com.practice.spboot.dto.UserDto;
 import com.practice.spboot.dto.VerifyUserEmail;
 import com.practice.spboot.service.user.UserService;
@@ -34,14 +35,13 @@ public class UserController {
 	public void sendVerifyCode() { }
 	
     @PostMapping("/sign/check-id")
-    public Boolean authCheckId(@RequestBody String userId) {
-    	System.out.println(userId);
-        return userService.findByUserId(userId);
+    public void authCheckId(@RequestBody String userId) {
+    	userService.checkByUserId(userId);
     }
     
     @PostMapping("/sign/check-name")
-    public Boolean authCheckName(@RequestBody String userName) {
-        return userService.findByUserName(userName);
+    public void checkByUserName(@RequestBody String userName) {
+        userService.checkByUserName(userName);
     }
     
     // UserDto검증 시 BaseDto의 값은 없어도 됨
@@ -49,6 +49,7 @@ public class UserController {
     // @RequestBody의 유무에 따라 Content-Type이 결정됨 있을 경우 raw로 해도 body를 가져오지만 없을 경우 x-.... 이나 form-data를 사용
     @PostMapping("/sign/signup")
     public Boolean signup(@RequestBody @Valid UserDto userDto) {
+    	System.out.println(userDto.toString());
     	return userService.save(userDto);
     }
     
@@ -58,12 +59,13 @@ public class UserController {
     }
     
     @PostMapping("/login")
-    public void userLogin(@RequestBody HttpSession httpSession, String userId, String userPassword) {
-    	userService.userLogin(httpSession, userId, userPassword);
+    public void userLogin(@RequestBody @Valid LoginRequest loginRequest, HttpSession httpSession) {
+    	System.out.println("????");
+    	userService.userLogin(loginRequest, httpSession);
     }
     
-    @PostMapping("/logout")
-    public void userLogout(@RequestBody HttpSession httpSession) {
-    	userService.userLogout(httpSession);
-    }
+//    @PostMapping("/logout")
+//    public void userLogout(@RequestBody HttpSession httpSession) {
+//    	userService.userLogout(httpSession);
+//    }
 }

@@ -12,6 +12,9 @@
             <div class="LogButton" id="LoginButton" @click="openLoginModal" v-if="!isLogin">
                 Log In
             </div>
+            <div v-if="!isLog">
+                Log Out
+            </div>
             <div class="LogButton" id="LogoutButton" v-else>
                 My Icon
             </div>
@@ -22,27 +25,33 @@
 
 <script>
 import LoginModal from '@/components/account/LoginModal.vue'
+import { useStore } from 'vuex'
 
-    export default{
-        name: 'AppHeader',
-        data() {
-            return {
-                isLogin: false,
-                isLoginModalVisible: false
-            }
-        },
-        methods: {
-            openLoginModal() {
-                this.isLoginModalVisible = true;
-            },
-            closeLoginModal() {
-                this.isLoginModalVisible = false;
-            }
-        },
-        components: {
-            LoginModal: LoginModal
+export default{
+    name: 'AppHeader',
+    computed: {
+        setup() {
+            const store = useStore();
+            return { store };
         }
+    },
+    data() {
+        return {
+            isLoginModalVisible: false
+        }
+    },
+    methods: {
+        openLoginModal() {
+            this.isLoginModalVisible = true;
+        },
+        closeLoginModal() {
+            this.isLoginModalVisible = false;
+        }
+    },
+    components: {
+        LoginModal: LoginModal
     }
+}
 </script>
 
 <style>

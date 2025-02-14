@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.practice.spboot.dto.UserDto;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Service
@@ -14,7 +15,7 @@ public class UserSessionService {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
     
-    public void startSession(HttpSession httpSession, UserDto userDto) {
+    public void startSession(UserDto userDto, HttpSession httpSession) {
     	httpSession.setAttribute("userDto", userDto);
     	httpSession.setMaxInactiveInterval(1800); // 30분
     }

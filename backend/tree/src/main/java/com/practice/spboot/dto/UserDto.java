@@ -8,11 +8,13 @@ import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 //view와 통신하기 위한 클래스, 중요한 데이터를 노출시키지 않기 위한 클래스 (column의 idx값 같은 것들)
 @NoArgsConstructor
 @Getter
 @Setter
+@ToString
 public class UserDto extends BaseDto {
 	@Size(min = 4, message = "아이디는 4글자 이상 입력해주세요")
     private String userId;

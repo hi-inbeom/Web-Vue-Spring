@@ -13,22 +13,24 @@
                     target="_blank">개인정보 수집 및 이용</a>
                 을 이해하고 동의하였음을 인정합니다.
             </p>
-            <!-- <EmailLogin></EmailLogin> -->
-            <component :is="handleViewComponent" @switchRouter="handleSwitchRouter"></component>
+            <component
+                :is="handleViewComponent"
+                @switchRouter="handleSwitchRouter"
+                @close="closeModal"
+            ></component>
         </div>
       </div>
     </div>
 </template>
 
 <script>
-// import EmailLogin from './EmailLogin.vue';
 import SiteLogin from './SiteLogin.vue';
 import FindAcnt from './FindAcnt.vue';
 import JoinSite from './JoinSite.vue';
+
 export default {
     name: 'LoginModal',
     components: {
-        // EmailLogin,
         SiteLogin,
         FindAcnt,
         JoinSite
@@ -49,8 +51,7 @@ export default {
             return this.viewComponentMap[this.switchRouter].title;
         }
     },
-    props: {
-    },
+    emits: ['close'],
     methods: {
         closeModal() {
             this.$emit('close');

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import com.practice.spboot.domain.user.User;
 import com.practice.spboot.domain.user.UserRepository;
+import com.practice.spboot.dto.LoginRequest;
 import com.practice.spboot.dto.UserDto;
 import com.practice.spboot.exception.UserExceptions;
 
@@ -17,14 +18,17 @@ public class UserService {
 	private final UserRepository userRepository;
 	private final UserSessionService userSessionService;
 
-	public Boolean findByUserId(String userId) {
-		System.out.println("????");
+	public void checkByUserId(String userId) {
 		// 있을 경우 true, 없을 경우 false
-		return userRepository.findByUserId(userId) != null;
+	    if (userRepository.findByUserId(userId) != null) {
+	        throw new UserExceptions("userId", "userId", "사용 중인 아이디입니다.");
+	    }
 	}
 	
-	public Boolean findByUserName(String userName) {
-		return userRepository.findByUserName(userName) != null;
+	public void checkByUserName(String userName) {
+	    if (userRepository.findByUserName(userName) != null) {
+	        throw new UserExceptions("userName", "userName", "사용 중인 닉네임입니다.");
+	    }
 	}
 
 	public Boolean save(UserDto userDto) {
@@ -47,18 +51,21 @@ public class UserService {
 		};
 	}
 
-	public void userLogin(HttpSession httpSession, String userId, String userPassword) {
-	    UserDto userDto = UserDto.of(userRepository.findByUserId(userId));
-	    
-	    if (userDto == null) {
+	public void userLogin(LoginRequest loginRequest, HttpSession httpSession) {
+		UserDto userDto = new UserDto();
+		
+	    try {
+		    userDto = UserDto.of(userRepository.findByUserId(loginRequest.getUserId()));
+	    } catch (Exception err) {
+	    	System.out.println("!");
 	        throw new UserExceptions("userId", "userId", "존재하지 않는 아이디입니다.");
 	    }
 	    
-	    if (!userDto.getUserPassword().equals(userPassword)) {
+	    if (!userDto.getUserPassword().equals(loginRequest.getUserPassword())) {
 	        throw new UserExceptions("userPassword", "userPassword", "비밀번호가 일치하지 않습니다.");
 	    }
 	    
-	    userSessionService.startSession(httpSession, userDto);
+	    userSessionService.startSession(userDto, httpSession);
 	}
 
 	public void userLogout(HttpSession httpSession) {

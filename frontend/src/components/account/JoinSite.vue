@@ -7,7 +7,7 @@
                     name="userEmail"
                     placeholder="이메일"
                     autocomplete="off"
-                    v-model="user.userEmail">
+                    v-model=user.userEmail>
             <label for="userEmail">이메일</label>
             <span v-if="joinWarning" class="join-warning-text">올바른 이메일의 형태가 아닙니다.</span>
         </div>
@@ -92,6 +92,7 @@ import axios from 'axios';
 
 export default {
     name: 'JoinSite',
+    emits: ['close'],
     data: () => ({
         joinProcess: 0,
         joinWarning: false,
@@ -140,7 +141,7 @@ export default {
             // DB연결하여 아이디 중복 체크
             try {
                 await axios.post("http://localhost:3000/user/sign/signup", this.user);
-                this.$emit('callCloseModal');
+                this.$emit('close');
             } catch (err) {
                 console.log('Error :',err.message);
                 // 모달창으로 에러를 보여줘야 될 듯
@@ -149,9 +150,14 @@ export default {
         async handleIdWarning() {
             if (this.user.userId.length < 4) {
                 this.commentIdwarning = "아이디는 4글자 이상이어야 합니다.";
+                this.idWarning = true;
             } else {
                 try {
-                    await axios.post("http://localhost:3000/user/sign/check-id", this.user.userId)
+                    await axios.post(
+                        "http://localhost:3000/user/sign/check-id",
+                        this.user.userId,
+                        {headers: {'Content-Type': 'text/plain'}}
+                    )
                     this.idWarning = false;
                 } catch (err) {
                     this.commentIdwarning = "사용 중인 아이디입니다.";
@@ -164,7 +170,11 @@ export default {
                 this.commontNameWarning = "닉네임을 입력해주세요.";
             } else {
                 try {
-                    await axios.post("http://localhost:3000/user/sign/check-name", this.user.userName)
+                    await axios.post(
+                        "http://localhost:3000/user/sign/check-name",
+                        this.user.userName,
+                        {headers: {'Content-Type': 'text/plain'}} // text/plain미설정 시  값 뒤에 = 혹은 ""가 발생
+                    )
                     this.nameWarning = false;
                 } catch (err) {
                     this.commontNameWarning = "사용 중인 닉네임입니다.";

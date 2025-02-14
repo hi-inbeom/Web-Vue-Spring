@@ -1,23 +1,40 @@
 <template lang="">
     <div class="login-input-box">
-        <input id="userid" type="text" name="userid" placeholder="아이디" autocomplete="off">
-        <label for="userid">아이디</label>
+        <input id="userId" type="text" v-model=user.userId name="userId" placeholder="아이디" autocomplete="off">
+        <label for="userId">아이디</label>
     </div>
 
     <div class="login-input-box">
-        <input id="userpassword" type="userpassword" name="userpassword" placeholder="비밀번호" autocomplete="off">
-        <label for="userpassword">비밀번호</label>
+        <input id="userPassword" type="password" v-model=user.userPassword name="userPassword" placeholder="비밀번호" autocomplete="off">
+        <label for="userPassword">비밀번호</label>
     </div>
     <div class="help-box">
         <div class="notice-login" @click="$emit('switchRouter', 1)"> 계정 찾기 </div>
         <div class="notice-login" @click="$emit('switchRouter', 2)"> 회원가입 </div>
     </div>
-    <input class="account-submit-btn" type="submit" value="로그인">
+    <input class="account-submit-btn" type="submit" @click="handleLogin()" value="로그인">
 </template>
 <script>
+import axios from 'axios'
+
 export default {
     name: 'SiteLogin',
+    emits: ['switchRouter', 'close'],
+    data: () => ({
+        user: {
+            userId: "",
+            userPassword: ""
+        }
+    }),
     methods: {
+        async handleLogin() {
+            try {
+                await axios.post("http://localhost:3000/user/login", this.user);
+                this.$emit('close');
+            } catch (err) {
+                console.log('Error :',err.message);
+            }
+        }
     }
 }
 </script>

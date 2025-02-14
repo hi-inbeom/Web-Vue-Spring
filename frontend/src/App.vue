@@ -25,6 +25,7 @@ export default {
     RightBar
     // RouterView
   },
+  data: () => ({ })
 }
 </script>
 
