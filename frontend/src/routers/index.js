@@ -3,15 +3,15 @@ import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
   {
-    path: '/',
-    component: () => import("@/views/Home.vue"),
-    children: [
-      {
-        path: "",
-        name: "home-board-content",
-        component: () => import("@/views/BoardList.vue")
-      }
-    ]
+    // path: '/',
+    // component: () => import("@/views/Home.vue"),
+    // children: [
+    //   {
+    //     path: "",
+    //     name: "home-board-content",
+    //     component: () => import("@/components/layout/BoardList.vue")
+    //   }
+    // ]
   }
 ];
 

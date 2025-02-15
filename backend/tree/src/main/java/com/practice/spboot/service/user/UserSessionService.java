@@ -17,7 +17,7 @@ public class UserSessionService {
     
     public void startSession(UserDto userDto, HttpSession httpSession) {
     	httpSession.setAttribute("userDto", userDto);
-    	httpSession.setMaxInactiveInterval(1800); // 30분
+    	httpSession.setMaxInactiveInterval(1800);
     }
     
     public void endSession(HttpSession httpSession) {

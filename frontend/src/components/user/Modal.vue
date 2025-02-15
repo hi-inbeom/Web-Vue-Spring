@@ -1,7 +1,7 @@
 <template>
     <div class="modal-backdrop">
       <div class="modal-content">
-        <button class="close-btn" @click.self="closeModal">X</button>
+        <button class="close-btn" @click="closeLoginModal">X</button>
         <div class="content-area">
             <h1>{{ handleViewTitle }}</h1>
             <p>
@@ -16,7 +16,6 @@
             <component
                 :is="handleViewComponent"
                 @switchRouter="handleSwitchRouter"
-                @close="closeModal"
             ></component>
         </div>
       </div>
@@ -24,26 +23,28 @@
 </template>
 
 <script>
-import SiteLogin from './SiteLogin.vue';
-import FindAcnt from './FindAcnt.vue';
-import JoinSite from './JoinSite.vue';
+import Login from './Login.vue';
+import FindAccount from './FindAccount.vue';
+import JoinProcess from './JoinProcess.vue';
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'LoginModal',
     components: {
-        SiteLogin,
-        FindAcnt,
-        JoinSite
+        Login,
+        FindAccount,
+        JoinProcess
     },
     data: () => ({
         switchRouter: 0,
         viewComponentMap: {
-            0: {component: 'SiteLogin', title: '로그인'},
-            1: {component: 'FindAcnt', title: '계정 찾기'},
-            2: {component: 'JoinSite', title: '회원 가입'}
+            0: {component: 'Login', title: '로그인'},
+            1: {component: 'FindAccount', title: '계정 찾기'},
+            2: {component: 'JoinProcess', title: '회원 가입'}
         }
     }),
     computed: {
+        ...mapGetters(['isModalVisible']),
         handleViewComponent() {
             return this.viewComponentMap[this.switchRouter].component;
         },
@@ -51,10 +52,10 @@ export default {
             return this.viewComponentMap[this.switchRouter].title;
         }
     },
-    emits: ['close'],
     methods: {
-        closeModal() {
-            this.$emit('close');
+        ...mapActions(['updateModalVisibility']),
+        closeLoginModal() {
+            this.updateModalVisibility(false)
         },
         handleSwitchRouter(target) {
             this.switchRouter = target;

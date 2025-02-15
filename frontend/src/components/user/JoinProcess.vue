@@ -89,10 +89,10 @@
 </template>
 <script>
 import axios from 'axios';
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'JoinSite',
-    emits: ['close'],
     data: () => ({
         joinProcess: 0,
         joinWarning: false,
@@ -112,7 +112,11 @@ export default {
             userEmail: ""
         }
     }),
+    computed: {
+        ...mapGetters(['setModalVisible'])
+    },
     methods: {
+        ...mapActions(['updateModalVisibility']),
         async handleFirstProcess() {
             try {
                 await axios.post("http://localhost:3000/user/sign/verify-email", this.user);
@@ -138,13 +142,11 @@ export default {
             }
         },
         async handleLastProcess() {
-            // DB연결하여 아이디 중복 체크
             try {
                 await axios.post("http://localhost:3000/user/sign/signup", this.user);
-                this.$emit('close');
+                this.updateModalVisibility(false);
             } catch (err) {
                 console.log('Error :',err.message);
-                // 모달창으로 에러를 보여줘야 될 듯
             }
         },
         async handleIdWarning() {

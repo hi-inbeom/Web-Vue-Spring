@@ -54,17 +54,16 @@ public class UserService {
 	public void userLogin(LoginRequest loginRequest, HttpSession httpSession) {
 		UserDto userDto = new UserDto();
 		
+		
 	    try {
 		    userDto = UserDto.of(userRepository.findByUserId(loginRequest.getUserId()));
 	    } catch (Exception err) {
-	    	System.out.println("!");
 	        throw new UserExceptions("userId", "userId", "존재하지 않는 아이디입니다.");
 	    }
 	    
 	    if (!userDto.getUserPassword().equals(loginRequest.getUserPassword())) {
 	        throw new UserExceptions("userPassword", "userPassword", "비밀번호가 일치하지 않습니다.");
 	    }
-	    
 	    userSessionService.startSession(userDto, httpSession);
 	}
 

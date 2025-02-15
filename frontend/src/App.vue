@@ -3,19 +3,16 @@
     <AppHeader/>
     <div class="main-layout">
       <LeftBar/>
-      <div class="router-view-container">
-        <!-- <RouterView/> -->
-      </div>
+      <!-- router-view로 SPA적용할 구역 -->
       <RightBar/>
     </div>
   </div>
 </template>
 
 <script>
-import AppHeader from '@/views/AppHeader.vue'
-import LeftBar from '@/views/LeftBar.vue'
-import RightBar from '@/views/RightBar.vue'
-// import { RouterView } from "vue-router";
+import AppHeader from '@/components/layout/AppHeader.vue'
+import LeftBar from '@/components/layout/LeftBar.vue'
+import RightBar from '@/components/layout/RightBar.vue'
 
 export default {
   name: 'App',
@@ -23,9 +20,7 @@ export default {
     AppHeader,
     LeftBar,
     RightBar
-    // RouterView
-  },
-  data: () => ({ })
+  }
 }
 </script>
 

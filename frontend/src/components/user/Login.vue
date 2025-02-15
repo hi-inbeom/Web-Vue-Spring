@@ -16,6 +16,7 @@
 </template>
 <script>
 import axios from 'axios'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'SiteLogin',
@@ -26,11 +27,16 @@ export default {
             userPassword: ""
         }
     }),
+    computed: {
+        ...mapGetters(['isLoggedIn','isModalVisible'])
+    },
     methods: {
+        ...mapActions(['updateLoginStatus','updateModalVisibility']),
         async handleLogin() {
             try {
                 await axios.post("http://localhost:3000/user/login", this.user);
-                this.$emit('close');
+                this.updateModalVisibility(false);
+                this.updateLoginStatus(true);
             } catch (err) {
                 console.log('Error :',err.message);
             }
