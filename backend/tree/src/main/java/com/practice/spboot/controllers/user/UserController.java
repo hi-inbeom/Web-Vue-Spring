@@ -5,6 +5,7 @@ import java.util.Enumeration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,11 +32,31 @@ public class UserController {
 	private final UserService userService;
 	
 
-	@PostMapping("/sign/verify-email")
-	public void verifyEmail(@RequestBody @Valid VerifyUserEmail verifyUserEmail) {	}
-	
 	@PostMapping("/sign/send-verify-code")
-	public void sendVerifyCode() { }
+	public String verifyEmail(@RequestBody @Valid VerifyUserEmail verifyUserEmail, HttpSession session) {
+		int randomNum = (int) (Math.random() * 10000);
+		String verifyCode = String.format("%04d", randomNum);
+		
+		session.setAttribute("verifyCode", verifyCode);
+		session.setAttribute("userEmail", verifyUserEmail.getUserEmail());
+
+		return verifyCode;
+	}
+	
+	@PostMapping("/sign/verify-code")
+	public UserDto verifyCode(@RequestBody String inputCode, HttpSession session) {
+		String verifyCode = (String) session.getAttribute("verifyCode");
+		if (verifyCode.equals(inputCode)) {
+			String userEmail = (String) session.getAttribute("userEmail");
+			try {
+			return userService.findByUserEmail(userEmail);
+			} catch (Exception err) {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
 	
     @PostMapping("/sign/check-id")
     public void authCheckId(@RequestBody String userId) {
@@ -52,13 +73,19 @@ public class UserController {
     // @RequestBody의 유무에 따라 Content-Type이 결정됨 있을 경우 raw로 해도 body를 가져오지만 없을 경우 x-.... 이나 form-data를 사용
     @PostMapping("/sign/signup")
     public Boolean signup(@RequestBody @Valid UserDto userDto) {
+    	System.out.println(userDto.getIdx());
     	System.out.println(userDto.toString());
     	return userService.save(userDto);
     }
     
-    @GetMapping("/sign/find")
+    @GetMapping("/find")
     public UserDto userFind(@RequestParam("userEmail") String userEmail) {
     	return userService.findByUserEmail(userEmail);
+    }
+    
+    @PatchMapping("/update")
+    public void userUpdate(@RequestBody UserDto userDto) {
+    	userService.update(userDto);
     }
     
     @PostMapping("/login")

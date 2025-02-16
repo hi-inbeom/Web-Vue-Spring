@@ -15,19 +15,19 @@
         <div class="LogButton" id="LogoutButton" @click="logout" v-if="isLoggedIn">
           Log Out
         </div>
-        <Modal v-if="isModalVisible"/>
+        <UserModal v-if="isModalVisible"/>
       </header>
     </div>
   </template>
 
 <script>
-import Modal from '@/components/user/Modal.vue'
+import UserModal from '@/components/user/UserModal.vue'
 import { mapGetters, mapActions } from 'vuex'
 import axios from 'axios'
 
 export default {
   name: 'AppHeader',
-  components: { Modal },
+  components: { UserModal },
   computed: {
     ...mapGetters(['isLoggedIn', 'isModalVisible'])
   },

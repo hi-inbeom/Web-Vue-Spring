@@ -1,14 +1,17 @@
 package com.practice.spboot.service.user;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 import org.springframework.stereotype.Service;
 
-import com.practice.spboot.domain.user.User;
 import com.practice.spboot.domain.user.UserRepository;
 import com.practice.spboot.dto.LoginRequest;
 import com.practice.spboot.dto.UserDto;
 import com.practice.spboot.exception.UserExceptions;
 
 import jakarta.servlet.http.HttpSession;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Service
@@ -33,6 +36,15 @@ public class UserService {
 
 	public Boolean save(UserDto userDto) {
 		return userRepository.save(userDto.toEntity()) != null;
+	}
+	
+	@Transactional
+	public void update(UserDto userDto) {
+	    String moddateStr = userDto.getModdate();
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm");
+	    LocalDateTime moddate = LocalDateTime.parse(moddateStr, formatter);
+		
+		userRepository.update(userDto.getUserName(), userDto.getUserPassword(), userDto.getUserId(), moddate);
 	}
 
 	public UserDto findByUserEmail(String userEmail) {

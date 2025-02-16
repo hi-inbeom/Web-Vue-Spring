@@ -1,18 +1,20 @@
 <template lang="">
-    <div class="login-input-box">
-        <input id="userId" type="text" v-model=user.userId name="userId" placeholder="아이디" autocomplete="off">
-        <label for="userId">아이디</label>
-    </div>
+    <div>
+        <div class="login-input-box">
+            <input id="userId" type="text" v-model=user.userId name="userId" placeholder="아이디" autocomplete="off">
+            <label for="userId">아이디</label>
+        </div>
 
-    <div class="login-input-box">
-        <input id="userPassword" type="password" v-model=user.userPassword name="userPassword" placeholder="비밀번호" autocomplete="off">
-        <label for="userPassword">비밀번호</label>
+        <div class="login-input-box">
+            <input id="userPassword" type="password" v-model=user.userPassword name="userPassword" placeholder="비밀번호" autocomplete="off">
+            <label for="userPassword">비밀번호</label>
+        </div>
+        <div class="help-box">
+            <div class="notice-login" @click="$emit('handleComponentKey', 1)"> 계정 찾기 </div>
+            <div class="notice-login" @click="$emit('handleComponentKey', 2)"> 회원가입 </div>
+        </div>
+        <input class="account-submit-btn" type="submit" @click="handleLogin()" value="로그인">
     </div>
-    <div class="help-box">
-        <div class="notice-login" @click="$emit('switchRouter', 1)"> 계정 찾기 </div>
-        <div class="notice-login" @click="$emit('switchRouter', 2)"> 회원가입 </div>
-    </div>
-    <input class="account-submit-btn" type="submit" @click="handleLogin()" value="로그인">
 </template>
 <script>
 import axios from 'axios'
@@ -20,7 +22,7 @@ import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'SiteLogin',
-    emits: ['switchRouter', 'close'],
+    emits: ['handleComponentKey', 'close'],
     data: () => ({
         user: {
             userId: "",

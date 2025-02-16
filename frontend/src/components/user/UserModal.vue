@@ -14,8 +14,8 @@
                 을 이해하고 동의하였음을 인정합니다.
             </p>
             <component
-                :is="handleViewComponent"
-                @switchRouter="handleSwitchRouter"
+                :is="viewComponent"
+                @handleComponentKey="handleKey"
             ></component>
         </div>
       </div>
@@ -23,33 +23,31 @@
 </template>
 
 <script>
-import Login from './Login.vue';
-import FindAccount from './FindAccount.vue';
-import JoinProcess from './JoinProcess.vue';
-import { mapGetters, mapActions } from 'vuex'
+import BottomComponent from './BottomComponent.vue';
+import FindComponent from './FindComponent.vue';
+import JoinComponent from './JoinComponent.vue';
+import { mapActions } from 'vuex'
 
 export default {
-    name: 'LoginModal',
     components: {
-        Login,
-        FindAccount,
-        JoinProcess
+        BottomComponent,
+        FindComponent,
+        JoinComponent
     },
     data: () => ({
-        switchRouter: 0,
-        viewComponentMap: {
-            0: {component: 'Login', title: '로그인'},
-            1: {component: 'FindAccount', title: '계정 찾기'},
-            2: {component: 'JoinProcess', title: '회원 가입'}
+        componentKey: 0,
+        componentMap: {
+            0: {component: 'BottomComponent', title: '로그인'},
+            1: {component: 'FindComponent', title: '계정 찾기'},
+            2: {component: 'JoinComponent', title: '회원 가입'}
         }
     }),
     computed: {
-        ...mapGetters(['isModalVisible']),
-        handleViewComponent() {
-            return this.viewComponentMap[this.switchRouter].component;
+        viewComponent() {
+            return this.componentMap[this.componentKey].component;
         },
         handleViewTitle() {
-            return this.viewComponentMap[this.switchRouter].title;
+            return this.componentMap[this.componentKey].title;
         }
     },
     methods: {
@@ -57,8 +55,8 @@ export default {
         closeLoginModal() {
             this.updateModalVisibility(false)
         },
-        handleSwitchRouter(target) {
-            this.switchRouter = target;
+        handleKey(target) {
+            this.componentKey = target;
         }
     }
 }
