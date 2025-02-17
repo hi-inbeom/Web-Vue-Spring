@@ -51,9 +51,9 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateModalVisibility']),
+        ...mapActions(['updateUserModalVisible']),
         closeLoginModal() {
-            this.updateModalVisibility(false)
+            this.updateUserModalVisible(false)
         },
         handleKey(target) {
             this.componentKey = target;

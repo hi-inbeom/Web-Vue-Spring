@@ -1,24 +1,21 @@
 <template>
-    <div class="leftbar-wrapper" hidden>
+    <div class="leftbar-wrapper">
         <ul>
             <li>
                 <router-link class="leftbar-router" to="/" >
                     Home
                 </router-link>
             </li>
+            <li class="leftbar-liner" style="height: 0px;"></li>
             <li>
-                Popular
-            </li>
-            <li class="leftbar-liner" style="height: 0px;">
+                <router-link class="leftbar-router" to="/infinity">
+                    Infinity Board
+                </router-link>
             </li>
             <li>
-                + Create Community
+                List Board
             </li>
-            <li v-for="(community, index) in userJoinedCommunities" :key="index">
-                {{ community }}
-            </li>
-            <li class="leftbar-liner" style="height: 0px;">
-            </li>
+            <li class="leftbar-liner" style="height: 0px;"></li>
             <li onclick="document.querySelector('#leftbar-help').click()">
                 <a 
                     class="leftbar-router"
@@ -54,16 +51,7 @@
 </template>
 <script>
 export default {
-    name: "LeftBar",
     data() {
-        return {
-            userJoinedCommunities: [
-                "Vue.js Developers",
-                "Node.js Enthusiasts",
-                "Frontend Masters",
-                "Backend Wizards"
-            ]
-        };
     }
 };
 </script>

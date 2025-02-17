@@ -15,7 +15,7 @@
         <div class="LogButton" id="LogoutButton" @click="logout" v-if="isLoggedIn">
           Log Out
         </div>
-        <UserModal v-if="isModalVisible"/>
+        <UserModal v-if="isUserModalVisible"/>
       </header>
     </div>
   </template>
@@ -29,10 +29,10 @@ export default {
   name: 'AppHeader',
   components: { UserModal },
   computed: {
-    ...mapGetters(['isLoggedIn', 'isModalVisible'])
+    ...mapGetters(['isLoggedIn', 'isUserModalVisible'])
   },
   methods: {
-    ...mapActions(['updateLoginStatus', 'updateModalVisibility']),
+    ...mapActions(['updateLoginStatus', 'updateUserModalVisible']),
     async logout() {
       try {
         await axios.post("http://localhost:3000/user/logout");
@@ -42,18 +42,22 @@ export default {
       }
     },
     openLoginModal() {
-      this.updateModalVisibility(true);
+      this.updateUserModalVisible(true);
     }
   }
 }
 </script>
 
-<style>
+<style scoped>
 
 .header-wrapper {
+  min-height: 80px;
   height: 80px;
+  position: sticky;
+  top: 0;
+  background-color: white;
   border-bottom: 1px solid rgb(169, 169, 169);
-  padding: 0px 15px;
+  padding: 0 15px;
 }
 header {
     display: flex;

@@ -33,11 +33,11 @@ export default {
         ...mapGetters(['isLoggedIn','isModalVisible'])
     },
     methods: {
-        ...mapActions(['updateLoginStatus','updateModalVisibility']),
+        ...mapActions(['updateLoginStatus','updateUserModalVisible']),
         async handleLogin() {
             try {
                 await axios.post("http://localhost:3000/user/login", this.user);
-                this.updateModalVisibility(false);
+                this.updateUserModalVisible(false);
                 this.updateLoginStatus(true);
             } catch (err) {
                 console.log('Error :',err.message);

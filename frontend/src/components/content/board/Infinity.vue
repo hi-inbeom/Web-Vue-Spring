@@ -1,9 +1,6 @@
 <template>
-  <div class="board-wrapper">
-    <div class="sort-area-wrapper">
-      <button>sort by</button>
-    </div>
-    <div class="area-liner"></div>
+  <div>
+    <ContentTop></ContentTop>
     <div class="board-area-wrapper">
       <div class="board-frame" v-for="(post, index) in posts" :key="index">
           <div class="board-top-frame">
@@ -29,27 +26,18 @@
 </template>
 
 <script>
+import ContentTop from './ContentTop.vue';
 export default {
   name: 'home-board-content',
+  components: {
+    ContentTop
+  },
   data() {
     return {
       posts: [
         { writer:"b/Community01", title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
         { writer:"b/Community02",title: 'Post 2', content: 'This is the content of post 2' },
-        { writer:"b/Community03",title: 'Post 3', content: 'This is the content of post 3' },
-        { writer:"b/Community01", title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
-        { writer:"b/Community02",title: 'Post 2', content: 'This is the content of post 2' },
-        { writer:"b/Community03",title: 'Post 3', content: 'This is the content of post 3' },
-        { writer:"b/Community01", title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
-        { writer:"b/Community02",title: 'Post 2', content: 'This is the content of post 2' },
-        { writer:"b/Community03",title: 'Post 3', content: 'This is the content of post 3' },
-        { writer:"b/Community01", title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
-        { writer:"b/Community02",title: 'Post 2', content: 'This is the content of post 2' },
-        { writer:"b/Community03",title: 'Post 3', content: 'This is the content of post 3' },
-        { writer:"b/Community01", title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
-        { writer:"b/Community02",title: 'Post 2', content: 'This is the content of post 2' },
-        { writer:"b/Community03",title: 'Post 3', content: 'This is the content of post 3' },
-        // Add more posts as needed
+        { writer:"b/Community03",title: 'Post 3', content: 'This is the content of post 3' }
       ]
     };
   }
@@ -62,22 +50,6 @@ export default {
       margin: 0 auto;
       padding-top: 25px;
       width: 700px;
-}
-
-/* 정렬 영역 지정 */
-.sort-area-wrapper {
-  display: flex;
-  width: 100%;
-  justify-content: right;
-}
-
-/* 정렬과 본 글 나누는 줄 */
-.area-liner {
-  width: 100%;
-  border-bottom: 1px solid gray;
-  top: 50%;
-  margin-top: 16px;
-  margin-bottom: 16px;
 }
 
 /* 게시글 최상위 영역 */

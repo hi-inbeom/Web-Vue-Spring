@@ -1,17 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
-// import AppHeader from '../components/common/AppHeader.vue';
+import Infinity from '@/components/content/board/Infinity.vue';
+import MainContent from '@/components/content/MainContent.vue';
 
 const routes = [
   {
-    // path: '/',
-    // component: () => import("@/views/Home.vue"),
-    // children: [
-    //   {
-    //     path: "",
-    //     name: "home-board-content",
-    //     component: () => import("@/components/layout/BoardList.vue")
-    //   }
-    // ]
+    path: '/',
+    name: 'MainContent',
+    component: MainContent
+  },
+  {
+    path: '/infinity',
+    name: 'Infinity',
+    component: Infinity
   }
 ];
 

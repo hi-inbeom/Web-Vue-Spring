@@ -3,23 +3,25 @@
     <AppHeader/>
     <div class="main-layout">
       <LeftBar/>
-      <!-- router-view로 SPA적용할 구역 -->
+      <ContentArea/>
       <RightBar/>
     </div>
   </div>
 </template>
 
 <script>
-import AppHeader from '@/components/layout/AppHeader.vue'
-import LeftBar from '@/components/layout/LeftBar.vue'
-import RightBar from '@/components/layout/RightBar.vue'
+import AppHeader from '@/components/layout/AppHeader.vue';
+import LeftBar from '@/components/layout/LeftBar.vue';
+import RightBar from '@/components/layout/RightBar.vue';
+import ContentArea from '@/components/layout/ContentArea.vue';
 
 export default {
   name: 'App',
   components: {
     AppHeader,
     LeftBar,
-    RightBar
+    RightBar,
+    ContentArea
   }
 }
 </script>

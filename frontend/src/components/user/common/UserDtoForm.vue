@@ -99,19 +99,19 @@ export default {
     },
     methods: {
         
-        ...mapActions(['updateModalVisibility']),
+        ...mapActions(['updateUserModalvisible']),
         async handleLastProcess() {
             if (this.isJoin) {
                 try {
                     await axios.post("http://localhost:3000/user/sign/signup", this.user);
-                    this.updateModalVisibility(false);
+                    this.updateUserModalvisible(false);
                 } catch (err) {
                     console.log('Error :',err.message);
                 }
             } else {
                 try {
                     await axios.patch("http://localhost:3000/user/update", this.user);
-                    this.updateModalVisibility(false);
+                    this.updateUserModalvisible(false);
                 } catch (err) {
                     console.log('Error :',err.message);
                 }
