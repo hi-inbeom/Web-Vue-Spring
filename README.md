@@ -25,12 +25,12 @@ Vue-Spring 연습을 위한 SPA 개인 프로젝트
 ![vuedotjs](https://img.shields.io/badge/vuedotjs-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)  
 
 ## 스크린샷
-![1](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/1.png)
-![2](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/2.png)
-![3](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/3.png)
-![4](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/4.png)
-![5](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/5.png)
-![6](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/6.png)
+![p1](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p1.png)
+![p2](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p2.png)
+![p3](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p3.png)
+![p4](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p4.png)
+![p5](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p5.png)
+![p6](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p6.png)
 
 ## 추후 계획
 
