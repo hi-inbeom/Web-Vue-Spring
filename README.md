@@ -30,6 +30,7 @@ Vue-Spring 연습을 위한 SPA 개인 프로젝트
 ![3](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/3.png)
 ![4](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/4.png)
 ![5](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/5.png)
+![6](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/6.png)
 
 ## 추후 계획
 
