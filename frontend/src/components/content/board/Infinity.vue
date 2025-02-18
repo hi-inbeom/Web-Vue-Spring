@@ -1,25 +1,19 @@
 <template>
   <div>
     <ContentTop></ContentTop>
-    <div class="board-area-wrapper">
-      <div class="board-frame" v-for="(post, index) in posts" :key="index">
-          <div class="board-top-frame">
-            <span id="writer">{{ post.writer }}</span>
-          </div>
-          <div class="board-title-frame">
-            <span id="title">{{ post.title }}</span>
-          </div>
-          <div class="board-content-frame">
-            <div v-if="post.screenshot">{{ post.screenshot }}</div>
-            <div v-if="!post.screenshot">{{ post.content }}</div>
-          </div>
-          <div class="board-bottom-frame">
-            <div>스크랩</div>
-            <div>좋아요</div>
-            <div>댓글</div>
-            <div>공유</div>
-            <div style="margin-left:auto;">신고</div>
-          </div>
+    <div class="board-wrapper" v-for="(post, index) in posts" :key="index">
+      <div class="board-frame">
+        <div class="board-title-frame">
+          <span id="title">{{ post.title }}</span>
+        </div>
+        <div class="board-content-frame">
+          <div id="screenshot" v-if="post.screenshot">{{ post.screenshot }}</div>
+          <div id="content" v-if="!post.screenshot">{{ post.content }}</div>
+        </div>
+        <div class="board-bottom-frame">
+          <div>좋아요</div>
+          <div>댓글</div>
+        </div>
       </div>
     </div>
   </div>
@@ -34,10 +28,47 @@ export default {
   },
   data() {
     return {
+      board: [{
+        idx: 0,
+        userName: '',
+        title: '',
+        screenshot: '',
+        content: '',
+        regdate: '',
+        view: 0,
+        like: 0,
+        reply: 0
+        }
+      ],
+      reply: [{
+        userName: '',
+        content: ''
+      }],
       posts: [
-        { writer:"b/Community01", title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
-        { writer:"b/Community02",title: 'Post 2', content: 'This is the content of post 2' },
-        { writer:"b/Community03",title: 'Post 3', content: 'This is the content of post 3' }
+        { title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
+        { title: 'Post 2', content: 'This is the content of post 2' },
+        { title: 'Post 3', content: 'This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3This is the content of post 3' },
+        { title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
+        { title: 'Post 2', content: 'This is the content of post 2' },
+        { title: 'Post 3', content: 'This is the content of post 3' },
+        { title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
+        { title: 'Post 2', content: 'This is the content of post 2' },
+        { title: 'Post 3', content: 'This is the content of post 3' },
+        { title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
+        { title: 'Post 2', content: 'This is the content of post 2' },
+        { title: 'Post 3', content: 'This is the content of post 3' },
+        { title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
+        { title: 'Post 2', content: 'This is the content of post 2' },
+        { title: 'Post 3', content: 'This is the content of post 3' },
+        { title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
+        { title: 'Post 2', content: 'This is the content of post 2' },
+        { title: 'Post 3', content: 'This is the content of post 3' },
+        { title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
+        { title: 'Post 2', content: 'This is the content of post 2' },
+        { title: 'Post 3', content: 'This is the content of post 3' },
+        { title: 'Post 1', screenshot: 'lol', content: 'This is the content of post 1' },
+        { title: 'Post 2', content: 'This is the content of post 2' },
+        { title: 'Post 3', content: 'This is the content of post 3' },
       ]
     };
   }
@@ -45,44 +76,41 @@ export default {
 </script>
 
 <style>
-  .board-wrapper {
-      justify-content: center;
-      margin: 0 auto;
-      padding-top: 25px;
-      width: 700px;
-}
-
 /* 게시글 최상위 영역 */
-.board-frame {
-  margin-bottom: 10px;
-  padding-left: 10px;
-  padding-right: 10px;
+.board-wrapper {
+  padding-bottom: 3px;
+  margin-bottom: 8px;
   text-align: left;
   border-bottom: 1px solid gray;
-  cursor:pointer;
 }
 
-.board-frame:hover:hover {
+.board-frame {
+  cursor:pointer;
+  padding: 0px 6px 6px 6px;
+}
+
+.board-frame:hover {
+  border-radius: 5px;
   background-color: rgba(80, 145, 109, 0.192);
 }
 
 /* 게시글 내에 여백 부여 */
-.board-frame div {
-  margin-top: 10px;
-  margin-bottom: 5px;
-}
-
-#writer:hover {
-  cursor: pointer;
-  color: purple;
-}
-
-#title {
-  cursor:pointer;
+.board-title-frame #title {
+  font-weight: 700;
+  font-size: 18px;
 }
 
 .board-content-frame {
-  max-height: 100px;
+  max-height: 200px;
+  margin: 5px 0px 5px 0px;
+}
+
+.board-content-frame #content {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
 }
 
 .board-bottom-frame {

@@ -161,7 +161,7 @@ export default {
     }
 }
 </script>
-<style>
+<style scoped>
     .join-input-box{
         position:relative;
         margin:10px 0;
@@ -173,7 +173,7 @@ export default {
         border-radius: 15px;
         padding:16px 3px 8px 12px;
         font-size:14pt;
-        width:95%;
+        width:100%;
     }
     .join-warning-text{
         color: red;
@@ -187,7 +187,7 @@ export default {
         border:none;
         border-radius: 15px;
         padding:12px;
-        width:93%;
+        width:100%;
         margin-top:10px;
         font-size:18pt;
         font-weight: bold;

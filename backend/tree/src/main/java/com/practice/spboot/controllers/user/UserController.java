@@ -4,6 +4,7 @@ import java.util.Enumeration;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.practice.spboot.dto.LoginRequest;
 import com.practice.spboot.dto.UserDto;
 import com.practice.spboot.dto.VerifyUserEmail;
+import com.practice.spboot.service.user.UserMailService;
 import com.practice.spboot.service.user.UserService;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,12 +32,21 @@ public class UserController {
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
 	
 	private final UserService userService;
+	private final UserMailService userMailServicel;
+	
+	@Value("${spring.mail.username:}")
+    private String mailUsername;
 	
 
 	@PostMapping("/sign/send-verify-code")
 	public String verifyEmail(@RequestBody @Valid VerifyUserEmail verifyUserEmail, HttpSession session) {
-		int randomNum = (int) (Math.random() * 10000);
-		String verifyCode = String.format("%04d", randomNum);
+		String verifyCode = "";
+		if (mailUsername == null) {
+			verifyCode = userMailServicel.sendVerificationEmail(verifyUserEmail.getUserEmail());
+		} else {
+			int randomNum = (int) (Math.random() * 10000);
+			verifyCode = String.format("%04d", randomNum);
+		}
 		
 		session.setAttribute("verifyCode", verifyCode);
 		session.setAttribute("userEmail", verifyUserEmail.getUserEmail());

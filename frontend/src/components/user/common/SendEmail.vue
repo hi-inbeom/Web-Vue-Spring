@@ -29,7 +29,7 @@ export default {
     }),
     computed: {
         BtnText() {
-            return this.isJoin ? 'J이메일 인증' : 'F이메일 인증';
+            return this.isJoin ? '이메일 인증' : '이메일 인증';
         }
     },
     emits: ['handleJoinKey', 'handleFindKey'],
@@ -52,12 +52,14 @@ export default {
             if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.user.userEmail))) {
                 this.viewWarning = true;
                 this.WarningText = "올바른 이메일의 형태가 아닙니다.";
+            } else {
+                this.viewWarning = false;
             }
         }
     }
 }
 </script>
-<style>
+<style scoped>
     .join-input-box{
         position:relative;
         margin:10px 0;
@@ -69,7 +71,7 @@ export default {
         border-radius: 15px;
         padding:16px 3px 8px 12px;
         font-size:14pt;
-        width:95%;
+        width:100%;
     }
     .join-warning-text{
         color: red;
@@ -83,7 +85,7 @@ export default {
         border:none;
         border-radius: 15px;
         padding:12px;
-        width:93%;
+        width:100%;
         margin-top:10px;
         font-size:18pt;
         font-weight: bold;

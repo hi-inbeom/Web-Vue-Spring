@@ -1,6 +1,6 @@
 <template>
-    <div class="modal-backdrop">
-      <div class="modal-content">
+    <div class="user-modal-backdrop">
+      <div class="user-modal-content">
         <button class="close-btn" @click="closeLoginModal">X</button>
         <div class="content-area">
             <h1>{{ handleViewTitle }}</h1>
@@ -71,7 +71,7 @@ export default {
         text-align: left;
         margin-top: 0px;
     }
-    .modal-backdrop {
+    .user-modal-backdrop {
         position: fixed;
         top: 0;
         left: 0;
@@ -83,7 +83,7 @@ export default {
         align-items: center;
         z-index: 1000;
     }
-    .modal-content {
+    .user-modal-content {
         background: white;
         padding: 30px;
         border-radius: 8px;

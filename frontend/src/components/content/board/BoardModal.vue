@@ -70,7 +70,7 @@ export default {
         left: 0;
         width: 100vw;
         height: 100vh;
-        background-color: rgba(0, 0, 0, 0.5);
+        background-color: rgba(0, 0, 0, 0.5) !important;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -81,13 +81,12 @@ export default {
         background: white;
         padding: 30px 30px 20px 30px;
         border-radius: 8px;
-        min-width: 600px;
-        min-height: 400px;
+        min-width: 700px;
+        min-height: 500px;
 
         @media (max-width: 700px) {
             height: 100%;
             width: 100%;
-            margin-top: 30px;
         }
     }
 
@@ -116,7 +115,7 @@ export default {
     .board-title-wrapper {
         position:relative;
         align-items: center;
-        width: 97%;
+        width: 100%;
         margin-bottom: 15px;
     }
 

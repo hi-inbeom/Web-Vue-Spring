@@ -59,7 +59,7 @@ export default {
         border-radius: 15px;
         padding:16px 3px 8px 12px;
         font-size:14pt;
-        width:95%;
+        width: 100%;
     }
     input::placeholder{
         color:transparent;
@@ -92,7 +92,7 @@ export default {
         margin-top:10px;
         color:rgba(0,0,0,0.35);
         font-size:14px;
-        width:98%;
+        width:100%;
     }
     .help-box .notice-login{
         cursor: pointer;
@@ -104,7 +104,7 @@ export default {
         border:none;
         border-radius: 15px;
         padding:12px;
-        width:98%;
+        width:100%;
         margin-top:10px;
         font-size:18pt;
         font-weight: bold;
