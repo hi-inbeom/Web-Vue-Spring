@@ -6,6 +6,7 @@ import store from './store';
 import BootstrapVue3 from 'bootstrap-vue-3'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
+import SideAlert from '@/components/alert/SideAlert.vue';
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.withCredentials = true;
@@ -16,4 +17,5 @@ createApp(App)
     .use(routers)
     .use(store)
     .use(BootstrapVue3)
+    .use(SideAlert)
     .mount('#app');

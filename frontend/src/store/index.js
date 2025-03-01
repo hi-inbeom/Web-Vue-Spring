@@ -3,7 +3,6 @@ import { createStore } from 'vuex'
 export const store = createStore({
   state: {
     isLoggedIn: false,
-    isUserModalVisible: false,
     verifyEmailCode: "",
     userdto: {
       userId: "",
@@ -12,21 +11,17 @@ export const store = createStore({
       userName: "",
       userEmail: ""
     },
-    isBoardModalVisible: false
+    activateModal: ""
   },
   getters: {
     isLoggedIn: state => state.isLoggedIn,
-    isUserModalVisible: state => state.isUserModalVisible,
     verifyEmailCode: state => state.verifyEmailCode,
     userdto: state => state.userdto,
-    isBoardModalVisible: state => state.isBoardModalVisible
+    activateModal: state => state.activateModal
   },
   mutations: {
     setIsLoggedIn(state, value) {
       state.isLoggedIn = value;
-    },
-    setUserModalVisible(state, value) {
-      state.isUserModalVisible = value;
     },
     setVerifyEmailCode(state, value) {
       state.verifyEmailCode = value;
@@ -37,16 +32,13 @@ export const store = createStore({
     setUserDtoField(state, { field, value }) {
       state.userdto[field] = value;
     },
-    setBoardModalVisible(state, value) {
-      state.isBoardModalVisible = value;
+    setActivateModal(state, value) {
+      state.activateModal = value;
     }
   },
   actions: {
     updateLoginStatus({ commit }, value) {
       commit('setIsLoggedIn', value);
-    },
-    updateUserModalVisible({ commit }, value) {
-      commit('setUserModalVisible', value);
     },
     updateVerifyEmailCode({ commit }, value) {
       commit('setVerifyEmailCode', value);
@@ -57,8 +49,8 @@ export const store = createStore({
     updateUserDtoField({ commit }, value) {
       commit('setUserDtoField', value);
     },
-    updateBoardModalVisible({commit}, value) {
-      commit('setBoardModalVisible', value)
+    updateActivateModal({commit}, value) {
+      commit('setActivateModal', value)
     }
   }
 });

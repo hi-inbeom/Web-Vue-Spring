@@ -1,7 +1,7 @@
 <template>
     <div class="user-modal-backdrop">
       <div class="user-modal-content">
-        <button class="close-btn" @click="closeLoginModal">X</button>
+        <button class="close-btn" @click="close">X</button>
         <div class="content-area">
             <h1>{{ handleViewTitle }}</h1>
             <p>
@@ -23,21 +23,20 @@
 </template>
 
 <script>
-import BottomComponent from './BottomComponent.vue';
+import LoginComponent from './LoginComponent.vue';
 import FindComponent from './FindComponent.vue';
 import JoinComponent from './JoinComponent.vue';
-import { mapActions } from 'vuex'
 
 export default {
     components: {
-        BottomComponent,
+        LoginComponent,
         FindComponent,
         JoinComponent
     },
     data: () => ({
         componentKey: 0,
         componentMap: {
-            0: {component: 'BottomComponent', title: '로그인'},
+            0: {component: 'LoginComponent', title: '로그인'},
             1: {component: 'FindComponent', title: '계정 찾기'},
             2: {component: 'JoinComponent', title: '회원 가입'}
         }
@@ -51,12 +50,11 @@ export default {
         }
     },
     methods: {
-        ...mapActions(['updateUserModalVisible']),
-        closeLoginModal() {
-            this.updateUserModalVisible(false)
-        },
         handleKey(target) {
             this.componentKey = target;
+        },
+        close() {
+            this.$emit('close');
         }
     }
 }
