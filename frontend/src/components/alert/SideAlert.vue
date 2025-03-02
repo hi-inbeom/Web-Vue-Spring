@@ -5,8 +5,9 @@
       :key="index"
       :class="['alert', alert.type]"
       role="alert"
+      class="alert-content"
     >
-      {{ alert.message }}
+      <span>{{ alert.message }} </span>
       <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
       </button>
@@ -15,38 +16,12 @@
 </template>
 
 <script setup>
-import { ref, defineExpose } from "vue";
+import { useSideAlertStore } from '@/store/useSideAlertStore';
+import { storeToRefs } from 'pinia';
 
-// 상태 변수
-const alerts = ref([]);
-// 알림 표시 함수
-const showAlert = (message, type = "fail") => {
-  if (type === "info") {
-    type = "alert alert-primary alert-dismissible fade show";
-  }
-  if (type === "success") {
-    type = "alert alert-success alert-dismissible fade show";
-  }
-  if (type === "fail") {
-    type = "alert alert-danger alert-dismissible fade show";
-  }
-  alerts.value.push({ message, type });
+const SideAlertStore = useSideAlertStore();
+const { alerts } = storeToRefs(SideAlertStore);
 
-  setTimeout(() => {
-    closeAlert(0);
-  }, 3000);
-};
-
-// 알림 닫기 함수
-const closeAlert = (index) => {
-  alerts.value.splice(index, 1);
-};
-
-// defineExpose는 Vue 3에서 script setup에서 자동으로 사용할 수 있습니다.
-// 별도로 import할 필요는 없습니다.
-defineExpose({
-  showAlert,
-});
 </script>
 
 <style scoped>

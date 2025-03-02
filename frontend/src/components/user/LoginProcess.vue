@@ -1,38 +1,54 @@
 <template lang="">
     <div>
         <div class="login-input-box">
-            <input id="userId" type="text" v-model=user.userId name="userId" placeholder="아이디" autocomplete="off">
+            <input id="userId" type="text" v-model=userdto.userId name="userId" placeholder="아이디" autocomplete="off">
             <label for="userId">아이디</label>
         </div>
 
         <div class="login-input-box">
-            <input id="userPassword" type="password" v-model=user.userPassword name="userPassword" placeholder="비밀번호" autocomplete="off">
+            <input id="userPassword" type="password" v-model=userdto.userPassword name="userPassword" placeholder="비밀번호" autocomplete="off">
             <label for="userPassword">비밀번호</label>
         </div>
         <div class="help-box">
             <div class="notice-login" @click="$emit('handleComponentKey', 1)"> 계정찾기 </div>
             <div class="notice-login" @click="$emit('handleComponentKey', 2)"> 회원가입 </div>
         </div>
+        <span v-if="isViewWarning" class="login-warning-text">{{ WarningText }} <br> </span>
         <input class="account-submit-btn" type="submit" @click="handleLogin()" value="로그인">
     </div>
 </template>
 
 <script setup>
+import { useModalStore } from '@/store/useModalStore';
+import { useTestStore } from '@/store/useTestStore';
+import { useUserStore } from '@/store/useUserStore';
+import { useAuthStore } from '@/store/useAuthStore';
 import { ref } from 'vue';
 import axios from 'axios';
 
-// 사용자 데이터
-const user = ref({
-  userId: "",
-  userPassword: ""
-});
+const modalStore = useModalStore();
+const testStore = useTestStore();
+const authStore = useAuthStore();
+const userStore = useUserStore();
+const userdto = userStore.userdto;
+
+const isViewWarning = ref(false);
+const WarningText = ref('');
 
 // 로그인 처리 함수
 const handleLogin = async () => {
   try {
-    await axios.post("http://localhost:3000/user/login", user.value);
+    if (userdto.userId === "" || userdto.userPassword === "") {
+        throw new Error('아이디와 비밀번호를 입력해주세요.');
+    }
+    if (!testStore.testStatus) {
+        await axios.post("http://localhost:3000/user/login", userdto);
+    }
+    authStore.updateLoginStatus(true);
+    modalStore.close();
   } catch (err) {
-    console.log('Error:', err.message);
+    WarningText.value = err.message || '서버와의 연결이 불안정한 상태입니다.';
+    isViewWarning.value = true;
   }
 };
 </script>
@@ -99,5 +115,10 @@ const handleLogin = async () => {
         font-size:18pt;
         font-weight: bold;
         cursor:pointer;
+    }
+    .login-warning-text{
+        color: red;
+        font-size: 12pt;
+        margin-top: 5px;
     }
 </style>

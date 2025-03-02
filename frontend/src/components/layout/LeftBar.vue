@@ -49,11 +49,7 @@
         </ul>
     </div>
 </template>
-<script>
-export default {
-    data() {
-    }
-};
+<script setup>
 </script>
 <style scoped>
     .leftbar-wrapper {

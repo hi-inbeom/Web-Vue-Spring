@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ContentTop></ContentTop>
+    <ContentTop/>
     <div class="board-wrapper" v-for="(post, index) in posts" :key="index">
       <div class="board-frame">
         <div class="board-title-frame">
