@@ -3,7 +3,7 @@
       <div class="user-modal-content">
         <button class="close-btn" @click="close">X</button>
         <div class="content-area">
-            <h1>{{ handleViewTitle }}</h1>
+            <h1>{{ modalTitle }}</h1>
             <p>
                 절차를 진행함에 있어
                 <a href="/doc/UserAgreement.html" 
@@ -15,6 +15,7 @@
             </p>
             <component
                 :is="viewComponent"
+                :isJoin="viewIsJoin"
                 @handleComponentKey="handleKey"
             ></component>
         </div>
@@ -22,42 +23,40 @@
     </div>
 </template>
 
-<script>
-import LoginComponent from './LoginComponent.vue';
-import FindComponent from './FindComponent.vue';
-import JoinComponent from './JoinComponent.vue';
+<script setup>
+import { ref, computed } from "vue";
+import { useModalStore } from "@/store/useModalStore";
+import EmailVerifyProcess from './EmailVerifyProcess.vue';
+import UserdtoProcess from './UserdtoProcess.vue';
+import LoginProcess from "./LoginProcess.vue";
 
-export default {
-    components: {
-        LoginComponent,
-        FindComponent,
-        JoinComponent
-    },
-    data: () => ({
-        componentKey: 0,
-        componentMap: {
-            0: {component: 'LoginComponent', title: '로그인'},
-            1: {component: 'FindComponent', title: '계정 찾기'},
-            2: {component: 'JoinComponent', title: '회원 가입'}
-        }
-    }),
-    computed: {
-        viewComponent() {
-            return this.componentMap[this.componentKey].component;
-        },
-        handleViewTitle() {
-            return this.componentMap[this.componentKey].title;
-        }
-    },
-    methods: {
-        handleKey(target) {
-            this.componentKey = target;
-        },
-        close() {
-            this.$emit('close');
-        }
-    }
-}
+// 상태 변수
+const componentKey = ref(0);
+const modalStore = useModalStore();
+
+// 컴포넌트 매핑
+const componentMap = {
+  0: { component: LoginProcess, title: "로그인" },
+  1: { component: EmailVerifyProcess, title: "계정찾기", isJoin: false },
+  2: { component: EmailVerifyProcess, title: "회원가입", isJoin: true },
+  3: { component: UserdtoProcess, title: "계정찾기", isJoin: false  },
+  4: { component: UserdtoProcess, title: "회원가입", isJoin: true }
+};
+
+// 현재 보여줄 컴포넌트, 제목, 회원가입 여부 파악
+const viewComponent = computed(() => componentMap[componentKey.value].component);
+const modalTitle = computed(() => componentMap[componentKey.value].title);
+const viewIsJoin = computed(() => componentMap[componentKey.value].isJoin);
+
+// 키 변경 함수
+const handleKey = (target) => {
+  componentKey.value = target;
+};
+
+// 닫기 함수
+const close = () => {
+  modalStore.close();
+};
 </script>
 
 <style>

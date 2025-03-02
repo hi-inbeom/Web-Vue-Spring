@@ -6,6 +6,8 @@
       <ContentArea/>
       <RightBar/>
     </div>
+    <UserModal v-if="modalStore.activateModal==='user'"/>
+    <SideAlert/>
   </div>
 </template>
 
@@ -14,6 +16,11 @@ import AppHeader from '@/components/layout/AppHeader.vue';
 import LeftBar from '@/components/layout/LeftBar.vue';
 import RightBar from '@/components/layout/RightBar.vue';
 import ContentArea from '@/components/layout/ContentArea.vue';
+
+import UserModal from '@/components/user/UserModal.vue'
+import SideAlert from './components/alert/SideAlert.vue';
+import { useModalStore } from '@/store/useModalStore';
+const modalStore = useModalStore();
 </script>
 
 

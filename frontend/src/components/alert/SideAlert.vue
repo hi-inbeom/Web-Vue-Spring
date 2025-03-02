@@ -1,68 +1,72 @@
 <template>
-  <div class="side-alert-wrapper">
-    <!-- 여러 알림을 동적으로 렌더링 -->
-    <div 
-      v-for="(alert, index) in alerts" 
-      :key="index" 
-      class="side-alert" 
-      :class="alert.type"
+  <div class="alert-container">
+    <div
+      v-for="(alert, index) in alerts"
+      :key="index"
+      :class="['alert', alert.type]"
+      role="alert"
     >
-      <p>{{ alert.message }}</p>
-      <button @click="closeAlert(index)">Close</button>
+      {{ alert.message }}
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
   </div>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      alerts: [], // 알림을 저장할 배열
-    };
-  },
-  methods: {
-    // 새로운 알림을 추가하는 함수
-    showAlert(message, type = 'info') {
-      this.alerts.push({ message, type });
+<script setup>
+import { ref, defineExpose } from "vue";
 
-      // 3초 후 자동으로 알림을 닫기
-      setTimeout(() => {
-        this.closeAlert(0); // 첫 번째 알림을 닫기
-      }, 3000);
-    },
-    
-    // 알림을 닫는 함수
-    closeAlert(index) {
-      this.alerts.splice(index, 1); // 해당 인덱스의 알림을 삭제
-    },
-  },
+// 상태 변수
+const alerts = ref([]);
+// 알림 표시 함수
+const showAlert = (message, type = "fail") => {
+  if (type === "info") {
+    type = "alert alert-primary alert-dismissible fade show";
+  }
+  if (type === "success") {
+    type = "alert alert-success alert-dismissible fade show";
+  }
+  if (type === "fail") {
+    type = "alert alert-danger alert-dismissible fade show";
+  }
+  alerts.value.push({ message, type });
+
+  setTimeout(() => {
+    closeAlert(0);
+  }, 3000);
 };
+
+// 알림 닫기 함수
+const closeAlert = (index) => {
+  alerts.value.splice(index, 1);
+};
+
+// defineExpose는 Vue 3에서 script setup에서 자동으로 사용할 수 있습니다.
+// 별도로 import할 필요는 없습니다.
+defineExpose({
+  showAlert,
+});
 </script>
 
 <style scoped>
-.side-alert-wrapper {
+.alert-container {
   position: fixed;
-  top: 20px;
+  bottom: 20px;
   right: 20px;
-  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 9999;
 }
 
-.side-alert {
-  padding: 1rem;
-  border-radius: 5px;
+
+.close-btn {
+  background: none;
+  border: none;
   color: white;
-  margin-bottom: 10px;
-}
-
-.side-alert.success {
-  background-color: green;
-}
-
-.side-alert.error {
-  background-color: red;
-}
-
-.side-alert.info {
-  background-color: blue;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 10px;
 }
 </style>

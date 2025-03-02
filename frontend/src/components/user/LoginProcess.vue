@@ -10,41 +10,31 @@
             <label for="userPassword">비밀번호</label>
         </div>
         <div class="help-box">
-            <div class="notice-login" @click="$emit('handleComponentKey', 1)"> 계정 찾기 </div>
+            <div class="notice-login" @click="$emit('handleComponentKey', 1)"> 계정찾기 </div>
             <div class="notice-login" @click="$emit('handleComponentKey', 2)"> 회원가입 </div>
         </div>
         <input class="account-submit-btn" type="submit" @click="handleLogin()" value="로그인">
     </div>
 </template>
-<script>
-import axios from 'axios'
-import { mapGetters, mapActions } from 'vuex'
 
-export default {
-    name: 'SiteLogin',
-    emits: ['handleComponentKey', 'close'],
-    data: () => ({
-        user: {
-            userId: "",
-            userPassword: ""
-        }
-    }),
-    computed: {
-        ...mapGetters(['isLoggedIn','isModalVisible'])
-    },
-    methods: {
-        ...mapActions(['updateLoginStatus','updateUserModalVisible']),
-        async handleLogin() {
-            try {
-                await axios.post("http://localhost:3000/user/login", this.user);
-                this.updateUserModalVisible(false);
-                this.updateLoginStatus(true);
-            } catch (err) {
-                console.log('Error :',err.message);
-            }
-        }
-    }
-}
+<script setup>
+import { ref } from 'vue';
+import axios from 'axios';
+
+// 사용자 데이터
+const user = ref({
+  userId: "",
+  userPassword: ""
+});
+
+// 로그인 처리 함수
+const handleLogin = async () => {
+  try {
+    await axios.post("http://localhost:3000/user/login", user.value);
+  } catch (err) {
+    console.log('Error:', err.message);
+  }
+};
 </script>
 
 <style>

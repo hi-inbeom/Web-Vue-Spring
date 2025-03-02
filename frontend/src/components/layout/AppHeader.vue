@@ -8,47 +8,38 @@
       <div id="searchbar-wrapper">
         <input type="text" placeholder="Search" />
       </div>
-      <div class="LogButton" id="LoginButton" @click="openModal" v-if="!isLoggedIn">
+      <div class="LogButton" id="LoginButton" @click="openModal" v-if="authStore.isLoggedIn === false">
         Log In
       </div>
-      <div class="LogButton" id="LogoutButton" @click="logout" v-if="isLoggedIn">
+      <div class="LogButton" id="LogoutButton" @click="logout" v-if="authStore.isLoggedIn === true">
         Log Out
       </div>
-      <UserModal v-if="activateModal==='user'" @close="closeModal" />
     </header>
   </div>
 </template>
 
-<script>
-import UserModal from '@/components/user/UserModal.vue'
-import { mapGetters, mapActions } from 'vuex'
-import axios from 'axios'
+<script setup>
+import axios from 'axios';
+import { useModalStore } from '@/store/useModalStore';
+import { useAuthStore } from '@/store/useAuthStore';
 
-export default {
-  name: 'AppHeader',
-  components: { UserModal },
-  computed: {
-    ...mapGetters(['isLoggedIn', 'activateModal'])  // Vuex getters로 isLoggedIn 가져오기
-  },
-  methods: {
-    ...mapActions(['updateLoginStatus','updateActivateModal']),
-    async logout() {
-      try {
-        await axios.post("http://localhost:3000/user/logout");
-        this.updateLoginStatus(false);
-      } catch (err) {
-        console.log('Error :', err.message);
-      }
-    },
-    openModal() {
-      this.updateActivateModal('user')
-    },
-    closeModal() {
-      this.updateActivateModal(null)
-    }
+const modalStore = useModalStore();
+const authStore = useAuthStore();
+
+const logout = async () => {
+  try {
+    await axios.post("http://localhost:3000/user/logout");
+    authStore.updateIsLoggedIn(false);
+  } catch (err) {
+    console.log('Error :', err.message);
   }
-}
+};
+
+const openModal = () => {
+  modalStore.updateActivateModal('user');
+};
 </script>
+
 
 <style scoped>
 .header-wrapper {
