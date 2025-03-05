@@ -6,6 +6,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -44,6 +45,12 @@ public class User extends BaseEntity {
 
 	public User() {
 		this.userAuth = Authorities.USER;
+	}
+
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", userPassword=" + userPassword + ", userName=" + userName + ", userEmail="
+				+ userEmail + ", userAuth=" + userAuth + "]";
 	}
 
 

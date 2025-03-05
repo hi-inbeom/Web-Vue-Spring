@@ -1,6 +1,5 @@
 <template>
   <div class="header-wrapper">
-    <header>
       <router-link to="/" id="logo-wrapper">
         <img src="@/assets/logo.webp" alt="이미지" />
         <div>나무</div>
@@ -14,7 +13,6 @@
       <div class="LogButton" id="LogoutButton" @click="logout" v-if="authStore.isLoggedIn === true">
         Log Out
       </div>
-    </header>
   </div>
 </template>
 
@@ -42,27 +40,21 @@ const openModal = () => {
 
 
 <style scoped>
+body {
+    margin: 0;
+}
 .header-wrapper {
   min-height: 80px;
-  height: 80px;
   position: sticky;
   top: 0;
   background-color: white;
   border-bottom: 1px solid rgb(169, 169, 169);
   padding: 0 15px;
+  z-index: 1000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; 
 }
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center; 
-    height: 100%;
-    position: relative;
-    padding: 0 15px;
-}
-body {
-    margin: 0;
-}
-
 #logo-wrapper {
     cursor: pointer;
     display: flex;

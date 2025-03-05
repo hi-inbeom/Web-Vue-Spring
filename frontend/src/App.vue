@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <AppHeader/>
-    <div class="main-layout">
+    <AppHeader class="app-header"/>
+    <div class="app-main">
       <LeftBar/>
       <ContentArea/>
       <RightBar/>
@@ -26,7 +26,7 @@ const modalStore = useModalStore();
 
 <style>
 html, body {
-  height: 100%;
+  height: 100vh;
   margin: 0;
 }
 #app {
@@ -35,14 +35,14 @@ html, body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  height: 100%;
-  display: flex;
+  min-height: 100vh;
   flex-direction: column;
+  display: flex;
 }
 
-.main-layout {
+.app-main {
   display: flex;
-  flex: 1;
   justify-content: space-between;
+  flex-grow: 1;
 }
 </style>

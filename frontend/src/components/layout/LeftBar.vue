@@ -1,21 +1,23 @@
 <template>
     <div class="leftbar-wrapper">
         <ul>
-            <li>
-                <router-link class="leftbar-router" to="/" >
+            <li onclick="document.querySelector('#leftbar-home').click()">
+                <router-link class="leftbar-router" id="leftbar-home" to="/" >
                     Home
                 </router-link>
             </li>
-            <li class="leftbar-liner" style="height: 0px;"></li>
-            <li>
-                <router-link class="leftbar-router" to="/infinity">
+            <hr class="leftbar-liner"/>
+            <li onclick="document.querySelector('#leftbar-infinity').click()">
+                <router-link class="leftbar-router" id="leftbar-infinity" to="/infinity">
                     Infinity Board
                 </router-link>
             </li>
-            <li>
-                List Board
+            <li onclick="document.querySelector('#leftbar-list').click()">
+                <router-link class="leftbar-router" id="leftbar-list" to="/list">
+                    List Board
+                </router-link>
             </li>
-            <li class="leftbar-liner" style="height: 0px;"></li>
+            <hr class="leftbar-liner">
             <li onclick="document.querySelector('#leftbar-help').click()">
                 <a 
                     class="leftbar-router"
@@ -55,11 +57,10 @@
     .leftbar-wrapper {
         width: 15%;
         border-right: 1px solid rgb(169, 169, 169);
-        padding-top: 10px;
     }
     .leftbar-wrapper ul {
         position: sticky;
-        top: 10px;
+        top: 34px;
         list-style-type: none;
         font-size: 19px;
         font-weight: 800;
@@ -68,8 +69,7 @@
     }
     .leftbar-wrapper li {
         padding-left: 15px;
-        margin-bottom: 20px;
-        height:25px;
+        margin: 16px 0px 16px 0px;
         align-items: left;
         text-align: left;
         overflow-y: hidden;
@@ -86,14 +86,14 @@
     .leftbar-wrapper li:hover a  {
         color: rgba(255, 255, 255, 0.856);
     }
-    .leftbar-liner {
-        border-bottom: 1px solid black;
-    }
     .leftbar-router {
         text-decoration: none;
         color: black;
     }
     .leftbar-router:hover  {
         color: rgba(255, 255, 255, 0.856);
+    }
+    .leftbar-liner {
+        margin: 8px 0px 8px 0px;
     }
 </style>
