@@ -27,7 +27,7 @@ const authStore = useAuthStore();
 const logout = async () => {
   try {
     await axios.post("http://localhost:3000/user/logout");
-    authStore.updateIsLoggedIn(false);
+    authStore.updateLoginStatus(false);
   } catch (err) {
     console.log('Error :', err.message);
   }

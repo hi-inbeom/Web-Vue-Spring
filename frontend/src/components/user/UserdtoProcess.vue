@@ -87,14 +87,19 @@ const BtnText = computed(() => props.isJoin ? '회원가입' : '계정 정보 �
 // 회원가입 및 정보 수정 함수
 const submitProcess = async () => {
     try {
+        handleIdWarning();
+        handleNameWarning();
+        handlePwdWarning();
+        handleVerifyPwdWarning();
         if (props.isJoin) {
             await axios.post("http://localhost:3000/user/sign/signup", userdto);
         } else {
             await axios.patch("http://localhost:3000/user/update", userdto);
         }
         modalStore.close();
+        userStore.resetUserDto();
     } catch (err) {
-        console.log('Error :', err.message);
+        console.log('Error :', err.response?.data.message || err.message);
     }
 };
 
@@ -119,7 +124,7 @@ const handleIdWarning = async () => {
 
         isIdWarning.value = false;
     } catch (err) {
-        commentWarnings.value.idWarning = err.message || '서버와의 연결이 불안정한 상태입니다.';
+        commentWarnings.value.idWarning = err.response?.data.message || err.message || '서버와의 연결이 불안정한 상태입니다.';
         isIdWarning.value = true;
     }
 };
@@ -140,13 +145,12 @@ const handleNameWarning = async () => {
         }
         isNameWarning.value = false;
     } catch (err) {
-        commentWarnings.value.nameWarning = err.message || '서버와의 연결이 불안정한 상태입니다.';
+        commentWarnings.value.nameWarning = err.response?.data.message || err.message || '서버와의 연결이 불안정한 상태입니다.';
         isNameWarning.value = true;
     }
 };
 
 const handlePwdWarning = () => {
-    console.log(userdto.userPassword);
     if(userdto.userPassword==="") {
         commentWarnings.value.pwdWarning = '비밀번호를 입력해주세요.';
         isPwdWarning.value = true;

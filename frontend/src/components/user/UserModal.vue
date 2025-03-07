@@ -33,7 +33,6 @@ import LoginProcess from "./LoginProcess.vue";
 // 상태 변수
 const componentKey = ref(0);
 const modalStore = useModalStore();
-
 // 컴포넌트 매핑
 const componentMap = {
   0: { component: LoginProcess, title: "로그인" },

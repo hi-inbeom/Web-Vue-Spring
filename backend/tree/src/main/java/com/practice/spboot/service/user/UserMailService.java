@@ -22,7 +22,7 @@ public class UserMailService {
 
             helper.setTo(toEmail);
             helper.setSubject("회원가입 인증 코드");
-            helper.setText("인증 코드: " + code, true);  // HTML 형식 가능
+            helper.setText("인증 코드: " + code, true);
 
             mailSender.send(message);
         } catch (MessagingException e) {

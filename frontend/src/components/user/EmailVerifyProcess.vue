@@ -5,7 +5,7 @@
                 name="userEmail"
                 placeholder="이메일"
                 autocomplete="off"
-                v-model="userEmail"
+                v-model="user.userEmail"
                 @blur="handleUserEmail">
         <label for="userEmail">이메일</label>
     </div>
@@ -47,7 +47,9 @@ const isSendCode = ref(false);
 const WarningText = ref('');
 let EmailCode = ref('');
 const inputCode = ref("");
-const userEmail = ref("");
+const user = ref({
+    userEmail : ""
+});
 const sendUserEmail = ref("");
 
 // BtnText 계산된 값
@@ -58,71 +60,74 @@ const BtnText = computed(() => {
 // 이메일 중복 검사 및 코드 전송 함수
 const sendVerifyCode = async () => {
     try {
-        handleUserEmail();
         // 이메일 코드 전송
         if (testStore.testStatus) {
             EmailCode.value = "123123";
         } else {
-            EmailCode.value = await axios.post('http://localhost:3000/user/sign/send-verify-code', userEmail.value);
+            if (props.isJoin) {
+                const response = await axios.post('http://localhost:3000/user/sign/send-verify-code', user.value);
+                EmailCode.value = String(response.data);
+            } else {
+                console.log("????")
+                const response = await axios.post('http://localhost:3000/user/sign/check-email', user.value);
+                EmailCode.value = String(response.data);
+            }
         }
-        if (props.isJoin) {
-            document.getElementById('userEmail').setAttribute('readonly', true);
-        }
+        document.getElementById('userEmail').setAttribute('readonly', true);
         isViewWarning.value = false;
         isSendCode.value = true;
-        sendUserEmail.value = userEmail.value;
+        sendUserEmail.value = user.value.userEmail;
+        console.log(EmailCode.value)
     } catch (err) {
-        handleErrorMessage(err)
+        handleErrorMessage(err.response?.data||err)
     }
 };
 // 인증번호 검증 함수
 const checkVerifyCode = async () => {
     try {
-        handleUserEmail();
         if (inputCode.value !== EmailCode.value) {
             throw new Error('코드가 일치하지 않습니다.');
         }
-        if (sendUserEmail.value !== userEmail.value) {
+        if (sendUserEmail.value !== user.value.userEmail) {
             throw new Error('이메일이 변경되었습니다. 절차를 다시 진행해주세요.');
         }
         if (!testStore.testStatus) {
-            await axios.post('http://localhost:3000/user/sign/verify-code', inputCode.value);
+            await axios.post('http://localhost:3000/user/sign/verify-code', inputCode.value, {
+            headers: {
+                'Content-Type': 'text/plain'
+                }
+            });
         }
-        userStore.updateUserDtoField('userEmail', userEmail.value );
+        userStore.updateUserDtoField('userEmail', user.value.userEmail );
         isViewWarning.value = false;
+        if (props.isJoin) {
+            emit('handleComponentKey', 4);
+        } else {
+            const response = await axios.post('http://localhost:3000/user/find', user.value);
+            userStore.updateUserDto(response.data);
+            console.log(response.data);
+            emit('handleComponentKey', 3);
+        }
     } catch (err) {
-        handleErrorMessage(err)
-        return;
+        handleErrorMessage(err.response?.data||err)
     }
 
-    if (props.isJoin) {
-        emit('handleComponentKey', 4);
-    } else {
-        emit('handleComponentKey', 3);
-    }
 };
 
 const handleUserEmail = async () => {
     try {
         // 이메일 유효성 검사
-        if (userEmail.value === "") {
+        if (user.value.userEmail === "") {
             throw new Error('이메일을 입력해주세요.');
         }
-        if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userEmail.value))) {
-            throw new Error('올바른 이메일의 형태가 아닙니다.');
+        if (!(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(user.value.userEmail))) {
+            throw new Error('올바른 이메일주소가 아닙니다.');
         }
-        // 중복 검사
-        if (!testStore.testStatus) {
-            if (props.isJoin) {
-                await axios.post('http://localhost:3000/user/sign/email-duplicate-check', userEmail.value);
-                // throw new Error('이미 가입된 이메일입니다.');
-            } else {
-                await axios.post('http://localhost:3000/user/sign/email-duplicate-check', userEmail.value);
-                // throw new Error('가입되지 않은 이메일입니다.');
-            }
-        }
+        isViewWarning.value = false;
     } catch (err) {
-        handleErrorMessage(err)
+        // err에 response 객체가 있을 경우, response.data를 사용하고,
+        // 없을 경우에는 err 자체를 사용합니다.
+        handleErrorMessage(err.response?.data||err)
     }
 }
 

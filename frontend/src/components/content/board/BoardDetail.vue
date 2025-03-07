@@ -5,14 +5,14 @@
         </div>
         <div class="detail-main-wrapper">
             <div class="detail-title">
-                {{boarddto.boardTitle}}
+                {{board.boardTitle}}
             </div>
             <div class="detail-content-wrapper">
                 <div class="detail-content">
-                    {{ boarddto.boardContent }}
+                    {{ board.boardContent }}
                 </div>
                 <div class="detail-img">
-                    {{ boarddto.boardImg }}
+                    {{ board.boardImg || '이미지 구역' }}
                 </div>
             </div>
             <div class="detail-sub-wrapper">
@@ -31,29 +31,31 @@
 import router from '@/routers';
 import { onMounted, ref } from 'vue';
 import { previousRoute } from "@/routers";
+import { useRoute } from 'vue-router';
+import axios from 'axios';
 
-let boarddto = ref({
-        boardId : "",
-        boardTitle : "",
-        boardImg : "",
-        boardContent : "",
-        boardPagenation : "",
-        fromBoard : ""
+const route = useRoute();
+
+let board = ref({
+    idx: 0,
+    boardTitle: "",
+    boardContent: "",
+    moddate: "",
+    regdate: "",
+    userId: ""
 })
 
-onMounted(() => {
-    console.log(previousRoute.value);
-    console.log(window.location.pathname)
-    console.log("?????")
+onMounted(async () => {
+    const response = await axios.get(`http://localhost:3000/board/detail/${route.params.idx}`);
+    board.value = response.data;
 });
 
 const goBack = () => {
     // 외부에서 직접 접속 시
+    if (previousRoute.value === "/infinity" || previousRoute.value === "/list") {router.go(-1); return}
     if (previousRoute.value !== "/infinity" || previousRoute.value !== "/list") {
-        if (window.location.pathname.indexOf("infinity")) {router.push({path: '/infinity'})}
-        if (window.location.pathname.indexOf("list")) {router.push({path: '/list'})}
-    } else {
-        router.go(-1);
+        if (window.location.pathname.indexOf("infinity") !== -1) {router.push({path: '/infinity'}); return}
+        if (window.location.pathname.indexOf("list") !== -1) {router.push({path: '/list'}); return}
     }
 }
 

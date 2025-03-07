@@ -18,5 +18,13 @@ export const useUserStore = defineStore("user", () => {
     userdto.value[field] = value;
   }
 
-  return { userdto, updateUserDto, updateUserDtoField };
+  function resetUserDto() {
+    userdto.value.userId = "",
+    userdto.value.userPassword = "",
+    userdto.value.userVerifyPassword = "",
+    userdto.value.userName = "",
+    userdto.value.userEmail = ""
+  }
+
+  return { userdto, updateUserDto, updateUserDtoField, resetUserDto };
 });

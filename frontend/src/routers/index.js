@@ -17,9 +17,10 @@ const routes = [
     component: InfinityBoard,
   },
   {
-    path: "/infinity/detail/:boardId",
+    path: "/infinity/detail/:idx",
     name: "InfinityBoardDetail",
     component: BoardDetail,
+    props: true
   },
   {
     path: "/board/write",

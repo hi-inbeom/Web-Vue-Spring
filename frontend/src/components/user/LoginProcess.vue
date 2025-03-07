@@ -47,7 +47,7 @@ const handleLogin = async () => {
     authStore.updateLoginStatus(true);
     modalStore.close();
   } catch (err) {
-    WarningText.value = err.message || '서버와의 연결이 불안정한 상태입니다.';
+    WarningText.value = err.response.data.message || err.message || '서버와의 연결이 불안정한 상태입니다.';
     isViewWarning.value = true;
   }
 };

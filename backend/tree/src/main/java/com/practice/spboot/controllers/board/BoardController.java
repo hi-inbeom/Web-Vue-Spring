@@ -50,7 +50,8 @@ public class BoardController {
 		boardService.delete(boardDto);
 	}
 	
-	@GetMapping("/{idx}")
+	// 게시글 자세히보기
+	@GetMapping("/detail/{idx}")
 	public BoardDto boardDetail(@PathVariable("idx") Long idx) {
 		return boardService.findById(idx);
 	}

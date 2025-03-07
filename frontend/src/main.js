@@ -6,6 +6,7 @@ import axios from 'axios';
 import BootstrapVue3 from 'bootstrap-vue-3'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue-3/dist/bootstrap-vue-3.css'
+import { quillEditor } from 'vue3-quill'
 
 axios.defaults.headers.post['Content-Type'] = 'application/json'
 axios.defaults.withCredentials = true;
@@ -15,5 +16,6 @@ axios.defaults.withCredentials = true;
 createApp(App)
     .use(routers)
     .use(BootstrapVue3)
+    .use(quillEditor)
     .use(createPinia())
     .mount('#app');
