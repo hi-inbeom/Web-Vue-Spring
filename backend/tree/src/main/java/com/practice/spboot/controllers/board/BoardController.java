@@ -33,7 +33,7 @@ public class BoardController {
 	}
 
 	// 게시글 작성하기
-	@PostMapping("/write")
+	@PostMapping("/write/save")
 	public void boardWrite(@RequestBody @Valid BoardDto boardDto) {
 		boardService.save(boardDto);
 	}

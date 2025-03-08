@@ -17,7 +17,7 @@
             </div>
             <div class="board-content-frame">
               <div id="screenshot" v-if="board.boardImg">{{ board.boardImg }}</div>
-              <div id="content" v-if="!board.boardImg">{{ board.boardContent }}</div>
+              <div id="content" v-if="!board.boardImg">{{ removeHtmlTags(board.boardContent) }}</div>
             </div>
             <div class="board-bottom-frame">
               <div>좋아요</div>
@@ -66,6 +66,11 @@ onMounted(async () => {
     console.error("에러 발생:", error);
   } 
 });
+
+function removeHtmlTags(boardContent) {
+  const doc = new DOMParser().parseFromString(boardContent,"text/html")
+  return doc.body.textContent || doc.body.innerHTML;
+}
 
 
 </script>

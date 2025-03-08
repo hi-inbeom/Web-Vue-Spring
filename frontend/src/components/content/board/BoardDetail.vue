@@ -8,9 +8,7 @@
                 {{board.boardTitle}}
             </div>
             <div class="detail-content-wrapper">
-                <div class="detail-content">
-                    {{ board.boardContent }}
-                </div>
+                <div class="detail-content" v-html="board.boardContent"></div>
                 <div class="detail-img">
                     {{ board.boardImg || '이미지 구역' }}
                 </div>

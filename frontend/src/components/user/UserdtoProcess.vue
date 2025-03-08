@@ -9,7 +9,7 @@
             autocomplete="off"
             @blur="handleIdWarning"
             :disabled="!props.isJoin">
-        <label for="email">아이디</label>
+        <label for="userId">아이디</label>
         <span v-if="isIdWarning" class="join-warning-text"> {{commentWarnings.idWarning}} </span>
     </div>
     <div class="join-input-box">
