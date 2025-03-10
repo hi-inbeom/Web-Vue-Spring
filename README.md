@@ -27,12 +27,16 @@ Vue와 Spring 연습을 위한 웹 사이트로 SPA 아키텍처 설계를 기�
 ## 다이어그램과 구현코드
 ![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Diagram.webp)  
 ![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Controller.webp)  
+> Controller에서는 Presentation Layer의 역할에 맞도록 응답, 암호화, 세션에 대한 코드만 구현하였습니다.
+
 ![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Service.webp)  
-![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Respository.webp)  
+> Service에서는 불필요한 ServiceImpl을 제외하여 코드의 복잡성을 낮췄고,  
+> Guard Clause방식을 활용해 조건문 중첩을 줄여 가독성을 개선했습니다.
+
+![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Repository.webp)  
 ![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/DAO.webp)  
 ![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/DTO.webp)  
-
-
+> Base 클래스를 사용하여 DB 테이블의 공통 컬럼(인덱스, 등록일, 수정일)을 추상화하여 중복을 제거하였고, User 및 Board 엔티티에서 이를 상속받아 일관된 구조를 유지했습니다.
 
 ## 스크린샷
 ![p1](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p1.png)
