@@ -33,12 +33,19 @@ public class UserController {
 	private final UserMailService userMailServicel;
 	//	회원 가입 중 이메일 검증
 	@PostMapping("/sign/send-verify-code")
-	public ResponseEntity<String> verifyEmail(@RequestBody @Valid VerifyUserEmail verifyUserEmail, HttpSession session) {
+	public ResponseEntity<String> verifyEmail(@RequestBody @Valid VerifyUserEmail verifyUserEmail,
+												HttpSession session) {
 		userService.duplicateCheckForUserEmail(verifyUserEmail.getUserEmail());
 		String verifyCode = userMailServicel.sendVerificationEmail(verifyUserEmail.getUserEmail());
 		sessionService.saveVerificationData(session, verifyCode, verifyUserEmail.getUserEmail());
 	    return new ResponseEntity<>(verifyCode, HttpStatus.OK);
 	}
+	
+    @PatchMapping("/update")
+    public void userUpdate(@RequestBody UserDto userDto) {
+    	userService.update(userDto);
+    }
+	
 	
 	// 코드 일치 여부 확인
 	@PostMapping("/sign/verify-code")
@@ -81,10 +88,7 @@ public class UserController {
     	return userService.findByUserEmail(verifyUserEmail.getUserEmail());
     }
     
-    @PatchMapping("/update")
-    public void userUpdate(@RequestBody UserDto userDto) {
-    	userService.update(userDto);
-    }
+
     
     @PostMapping("/login")
     public void userLogin(@RequestBody @Valid LoginRequest loginRequest, HttpSession session) {

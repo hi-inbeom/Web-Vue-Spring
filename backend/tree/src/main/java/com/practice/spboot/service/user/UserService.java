@@ -18,10 +18,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class UserService {
-
 	private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-
 	public void checkByUserId(String userId) {
 		if (userId == null) {
 			throw new UserExceptions("아이디를 입력해주세요.");
@@ -30,13 +28,11 @@ public class UserService {
 			throw new UserExceptions("아이디는 4글자 이상이어야 합니다.");
 		}
 		// mysql에서는 대소문자 구분이 안되기 떄문에 equals로 대소문자 구분
-		if (userRepository.findByUserId(userId) != null) {
-		    if (userRepository.findByUserId(userId).getUserId().equals(userId)) {
-		        throw new UserExceptions("사용 중인 아이디입니다.");
-		    }
-		}
+	    if (userRepository.findByUserId(userId) != null && 
+	        userRepository.findByUserId(userId).getUserId().equals(userId)) {
+	        throw new UserExceptions("사용 중인 아이디입니다.");
+        }
 	}
-	
 	public UserDto findByUserEmail(String userEmail) {
 		if (userEmail==null) {
 			throw new UserExceptions("이메일을 입력해주세요");
