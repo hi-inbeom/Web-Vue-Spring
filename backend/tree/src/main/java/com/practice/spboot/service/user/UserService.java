@@ -21,7 +21,6 @@ public class UserService {
 
 	private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
-	private final UserSessionService userSessionService;
 
 	public void checkByUserId(String userId) {
 		if (userId == null) {
@@ -38,12 +37,20 @@ public class UserService {
 		}
 	}
 	
-	public void checkByUserName(String userName) {
-    	if (userName==null) {
-    		throw new UserExceptions("닉네임을 입력해주세요");
+	public UserDto findByUserEmail(String userEmail) {
+		if (userEmail==null) {
+			throw new UserExceptions("이메일을 입력해주세요");
 		}
+		return UserDto.of(userRepository.findByUserEmail(userEmail));
 	}
-
+	
+	// 비밀번호 암호화
+	private UserDto EncodePassword(UserDto userDto) {
+        String encodedPassword = passwordEncoder.encode(userDto.getUserPassword());
+        userDto.setUserPassword(encodedPassword);
+        return userDto;
+	}
+	
 	public Boolean save(UserDto userDto) {
 		userDto = EncodePassword(userDto);
 		return userRepository.save(userDto.toEntity()) != null;
@@ -59,11 +66,19 @@ public class UserService {
 		userRepository.update(userDto.getUserName(), userDto.getUserPassword(), userDto.getUserId(), moddate);
 	}
 
-	public UserDto findByUserEmail(String userEmail) {
-		if (userEmail==null) {
-			throw new UserExceptions("이메일을 입력해주세요");
-		}
-		return UserDto.of(userRepository.findByUserEmail(userEmail));
+	public UserDto userLogin(HttpSession httpSession, LoginRequest loginRequest) {
+	    UserDto userDto;
+	    try {
+	        userDto = UserDto.of(userRepository.findByUserId(loginRequest.getUserId()));
+	    } catch (Exception err) {
+	        throw new UserExceptions("존재하지 않는 아이디입니다.");
+	    }
+
+	    if (!passwordEncoder.matches(loginRequest.getUserPassword(), userDto.getUserPassword())) {
+	        throw new UserExceptions("비밀번호가 일치하지 않습니다.");
+	    }
+
+	    return userDto;
 	}
 	
 	public void duplicateCheckForUserEmail(String userEmail){
@@ -72,10 +87,16 @@ public class UserService {
 		};
 	}
 	
-	public void CheckForUserEmail(String userEmail){
+	public void checkForUserEmail(String userEmail){
 		if (userRepository.findByUserEmail(userEmail) == null) {
 			throw new UserExceptions("가입되어 있지 않은 이메일입니다.");
 		};
+	}
+	
+	public void checkByUserName(String userName) {
+    	if (userName==null) {
+    		throw new UserExceptions("닉네임을 입력해주세요");
+		}
 	}
 	
 	private void duplicateCheckForUserId(String userId){
@@ -89,30 +110,15 @@ public class UserService {
 			throw new UserExceptions("존재하는 닉네임");
 		};
 	}
-	
-	// 비밀번호 암호화
-	private UserDto EncodePassword(UserDto userDto) {
-        String encodedPassword = passwordEncoder.encode(userDto.getUserPassword());
-        userDto.setUserPassword(encodedPassword);
-        return userDto;
-	}
 
-	public void userLogin(LoginRequest loginRequest, HttpSession httpSession) {
-		UserDto userDto = new UserDto();
-	    try {
-		    userDto = UserDto.of(userRepository.findByUserId(loginRequest.getUserId()));
-	    } catch (Exception err) {
-	        throw new UserExceptions("존재하지 않는 아이디입니다.");
-	    }
-	    
-	    if (!passwordEncoder.matches(loginRequest.getUserPassword(),userDto.getUserPassword())) {
-	        throw new UserExceptions("비밀번호가 일치하지 않습니다.");
-	    }
-	    userSessionService.startSession(userDto, httpSession);
-	}
-
-	public void userLogout(HttpSession httpSession) {
-		userSessionService.endSession(httpSession);
+	public void verifyCode(String inputCode, HttpSession session) {
+		String storedCode = (String) session.getAttribute("verifyCode");
+		if (inputCode == null) {
+			throw new UserExceptions("코드를 입력해주세요.");
+		}
+		if (!storedCode.equals(inputCode)) {
+			throw new UserExceptions("코드가 일치하지 않습니다.");
+		}
 	}
 
 }

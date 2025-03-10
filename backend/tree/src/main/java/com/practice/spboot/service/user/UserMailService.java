@@ -33,9 +33,7 @@ public class UserMailService {
     }
 
     private String generateVerificationCode() {
-    	int randomNum = (int) (Math.random() * 10000);
-		String verifyCode = String.format("%04d", randomNum);
-        return verifyCode;
+        return String.format("%04d", (int) (Math.random() * 10000));
     }
 
 }
