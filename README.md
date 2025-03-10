@@ -24,27 +24,21 @@ Vue와 Spring 연습을 위한 웹 사이트로 SPA 아키텍처 설계를 기�
 ![spring](https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
 ![vuedotjs](https://img.shields.io/badge/vuedotjs-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)
 
-## 다이어그램과 구현코드
-![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Diagram.webp)  
-![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Controller.webp)  
-> Controller에서는 Presentation Layer의 역할에 맞도록 응답, 암호화, 세션에 대한 코드만 구현하였습니다.
+## 코드 구현 방식
+![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Controller.png)  
+> Presentation Layer인 Controller에서는 역할에 맞도록 API와 응답에 대한 코드만 구현하였고,  
+> API 구현할 때는 RestFul API를 준수하여 구현하였습니다.
 
-![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Service.webp)  
-> Service에서는 불필요한 ServiceImpl을 제외하여 코드의 복잡성을 낮췄고,  
+![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Service.png)  
+> Service에서는 ServiceImpl을 제외하여 코드의 복잡성을 낮췄고,  
 > Guard Clause방식을 활용해 조건문 중첩을 줄여 가독성을 개선했습니다.
 
 ![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Repository.webp)  
 ![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/DAO.webp)  
 ![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/DTO.webp)  
-> Base 클래스를 사용하여 DB 테이블의 공통 컬럼(인덱스, 등록일, 수정일)을 추상화하여 중복을 제거하였고, User 및 Board 엔티티에서 이를 상속받아 일관된 구조를 유지했습니다.
-
-## 스크린샷
-![p1](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p1.png)
-![p2](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p2.png)
-![p3](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p3.png)
-![p4](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p4.png)
-![p5](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p5.png)
-![p6](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p6.png)
+> DAO에서 Base 클래스를 사용하여 DB 테이블의 공통 컬럼(인덱스, 등록일, 수정일)을 추상화하여 중복 코드를 줄이고,  
+> User 및 Board 엔티티에서 이를 상속받도록 하여 코드의 재사용성을 높혔습니다.  
+> DTO에서도 BaseDto 클래스를 사용하여 중복 코드를 줄이고 DAO와 동일한 구조로 일관성을 유지하였습니다.
 
 ## 추후 계획
 
