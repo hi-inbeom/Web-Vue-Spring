@@ -1,7 +1,7 @@
 # Web-Vue-Spring
 
 ## 프로젝트 소개
-Vue-Spring 연습을 위한 SPA 개인 프로젝트
+Vue와 Spring 연습을 위한 웹 사이트로 SPA 아키텍처 설계를 기반으로 MVC 디자인 패턴으로 구현 중인 웹 사이트
 
 ## 개발 환경
 > Tools  
@@ -22,7 +22,17 @@ Vue-Spring 연습을 위한 SPA 개인 프로젝트
 ![javascript](https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)  
 > Framework  
 ![spring](https://img.shields.io/badge/spring-6DB33F?style=for-the-badge&logo=spring&logoColor=white)
-![vuedotjs](https://img.shields.io/badge/vuedotjs-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)  
+![vuedotjs](https://img.shields.io/badge/vuedotjs-4FC08D?style=for-the-badge&logo=vuedotjs&logoColor=white)
+
+## 다이어그램과 구현코드
+![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Diagram.webp)  
+![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Controller.webp)  
+![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Service.webp)  
+![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/Respository.webp)  
+![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/DAO.webp)  
+![image](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/DTO.webp)  
+
+
 
 ## 스크린샷
 ![p1](https://github.com/hi-inbeom/Web-Vue-Spring/blob/main/readme-images/p1.png)
