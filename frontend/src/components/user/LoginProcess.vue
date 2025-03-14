@@ -14,7 +14,7 @@
             <div class="notice-login" @click="$emit('handleComponentKey', 2)"> 회원가입 </div>
         </div>
         <span v-if="isViewWarning" class="login-warning-text">{{ WarningText }} <br> </span>
-        <input class="account-submit-btn" type="submit" @click="handleLogin()" value="로그인">
+        <input class="account-submit-btn" type="button" @click="handleLogin" value="로그인">
     </div>
 </template>
 
@@ -23,7 +23,7 @@ import { useModalStore } from '@/store/useModalStore';
 import { useTestStore } from '@/store/useTestStore';
 import { useUserStore } from '@/store/useUserStore';
 import { useAuthStore } from '@/store/useAuthStore';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import axios from 'axios';
 
 const modalStore = useModalStore();
@@ -35,19 +35,24 @@ const userdto = userStore.userdto;
 const isViewWarning = ref(false);
 const WarningText = ref('');
 
+onMounted(() => {
+    userStore.resetUserDto();
+});
+
 // 로그인 처리 함수
 const handleLogin = async () => {
   try {
-    if (userdto.userId === "" || userdto.userPassword === "") {
-        throw new Error('아이디와 비밀번호를 입력해주세요.');
+    if (!userdto.userId || !userdto.userPassword) {
+      throw new Error("아이디와 비밀번호를 입력해주세요.");
     }
     if (!testStore.testStatus) {
-        await axios.post("http://localhost:3000/user/login", userdto);
+      await axios.post("http://localhost:3000/user/login", userdto);
     }
+
     authStore.updateLoginStatus(true);
     modalStore.close();
   } catch (err) {
-    WarningText.value = err.response.data.message || err.message || '서버와의 연결이 불안정한 상태입니다.';
+    WarningText.value = err.response?.data?.message || err.message || "서버와의 연결이 불안정한 상태입니다.";
     isViewWarning.value = true;
   }
 };

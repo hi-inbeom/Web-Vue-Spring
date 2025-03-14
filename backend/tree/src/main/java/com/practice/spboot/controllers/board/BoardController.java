@@ -1,7 +1,6 @@
 package com.practice.spboot.controllers.board;
 
-import java.util.List;
-import java.util.Optional;
+import java.awt.print.Pageable;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,9 +9,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.practice.spboot.domain.board.Board;
 import com.practice.spboot.dto.board.BoardDto;
 import com.practice.spboot.service.board.BoardService;
 
@@ -27,9 +26,14 @@ public class BoardController {
 	private final BoardService boardService;
 	
 	// 게시글 전부 가져오기
-	@PostMapping("/")
-	public List<BoardDto> boardList() {
-		return boardService.findAll();
+//	@GetMapping("/")
+//	public List<BoardDto> boardList(@RequestParam String orderby) {
+//		return boardService.findAll();
+//	}
+	
+	@GetMapping("/")
+	public void boardList(@RequestParam("page") String page) {
+	    boardService.findAll(page);
 	}
 
 	// 게시글 작성하기

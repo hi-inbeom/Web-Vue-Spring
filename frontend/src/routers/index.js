@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { ref } from "vue";
 import InfinityBoard from "@/components/content/board/InfinityBoard.vue";
+import ListBoard from "@/components/content/board/ListBoard.vue";
 import BoardDetail from "@/components/content/board/BoardDetail.vue";
 import MainContent from "@/components/content/MainContent.vue";
 import BoardWrite from "@/components/content/board/BoardWrite.vue";
@@ -15,6 +16,11 @@ const routes = [
     path: "/infinity",
     name: "InfinityBoard",
     component: InfinityBoard,
+  },
+  {
+    path: "/list",
+    name: "ListBoard",
+    component: ListBoard,
   },
   {
     path: "/infinity/detail/:idx",

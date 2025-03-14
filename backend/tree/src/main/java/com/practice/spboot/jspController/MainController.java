@@ -10,7 +10,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 	@GetMapping("/")
 	public String index() {
-		return "main";
+        return "main";
 	}
-
+	
+	@GetMapping("/join.me")
+	public String join() {
+		return "register";
+	}
+	
+	@GetMapping("/login.me")
+	public String login() {
+		return "login";
+	}
+	
+	@GetMapping("/update.me")
+	public String update() {
+		return "update";
+	}
 }

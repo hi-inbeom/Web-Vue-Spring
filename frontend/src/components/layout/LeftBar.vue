@@ -7,11 +7,11 @@
                 </router-link>
             </li>
             <hr class="leftbar-liner"/>
-            <li onclick="document.querySelector('#leftbar-infinity').click()">
+            <!-- <li onclick="document.querySelector('#leftbar-infinity').click()">
                 <router-link class="leftbar-router" id="leftbar-infinity" to="/infinity">
                     Infinity Board
                 </router-link>
-            </li>
+            </li> -->
             <li onclick="document.querySelector('#leftbar-list').click()">
                 <router-link class="leftbar-router" id="leftbar-list" to="/list">
                     List Board

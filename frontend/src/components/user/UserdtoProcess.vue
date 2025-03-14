@@ -51,8 +51,8 @@
         <label for="userVerifyPassword">비밀번호 확인</label>
         <span v-if="isVerifyPwdWarning" class="join-warning-text"> {{commentWarnings.verifyPwdWarning}} </span>
     </div>
-    <div class="account-next-btn"
-        @click="submitProcess"> {{ BtnText }} </div>
+    <div v-if="!testStore.testStatus" class="account-next-btn" @click="submitProcess"> {{ BtnText }} </div>
+    <div v-if="testStore.testStatus" class="account-next-btn" @click="submitProcess"> {{ BtnText }} </div>
 </template>
 
 <script setup>

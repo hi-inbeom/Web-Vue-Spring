@@ -20,13 +20,19 @@
 import axios from 'axios';
 import { useModalStore } from '@/store/useModalStore';
 import { useAuthStore } from '@/store/useAuthStore';
+import { useTestStore } from '@/store/useTestStore';
 
 const modalStore = useModalStore();
 const authStore = useAuthStore();
+const testStore = useTestStore();
 
 const logout = async () => {
   try {
-    await axios.post("http://localhost:3000/user/logout");
+    if(testStore.testStatus) {
+      authStore.updateLoginStatus(false);
+    } else {
+      await axios.post("http://localhost:3000/user/logout");
+    }
     authStore.updateLoginStatus(false);
   } catch (err) {
     console.log('Error :', err.message);

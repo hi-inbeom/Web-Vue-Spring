@@ -62,7 +62,7 @@ const sendVerifyCode = async () => {
     try {
         // 이메일 코드 전송
         if (testStore.testStatus) {
-            EmailCode.value = "123123";
+            EmailCode.value = "0000";
         } else {
             if (props.isJoin) {
                 const response = await axios.post('http://localhost:3000/user/sign/send-verify-code', user.value);

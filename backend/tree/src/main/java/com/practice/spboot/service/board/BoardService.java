@@ -20,7 +20,17 @@ public class BoardService {
 	
 	private final BoardRepository boardRepository;
 	
-	public List<BoardDto> findAll() {
+	public List<BoardDto> findAll(String page) {
+	    if (page == null || page.isEmpty()) {
+	        page = "1";
+	    }
+		int currentPage = Integer.parseInt(page);
+		int pageLimit = 10;
+		int start = (pageLimit * currentPage) - (pageLimit - 1);
+		int end = (pageLimit * currentPage);
+		
+		
+		
         return boardRepository.findAll()
                 .stream()
                 .map(BoardDto::of)
